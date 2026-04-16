@@ -1,4 +1,4 @@
-const API_BASE = "https://table-mind-api.vercel.app";
+const API_BASE = "https://table-mind-seven.vercel.app";
 
 export async function streamChat({ agent, style, message, history, catalog, onChunk, onDone, onError }) {
 	try {
