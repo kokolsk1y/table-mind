@@ -17,7 +17,8 @@
 		streamChat({
 			agent: "waiter",
 			style: "detailed",
-			message: `Расскажи подробно о блюде: ${item.name}`,
+			message: `Расскажи о блюде: ${item.name}`,
+			history: [],
 			catalog,
 			onChunk(fullText) {
 				text = fullText;
@@ -37,48 +38,54 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="fixed inset-0 z-50 flex items-end justify-center" onclick={onClose}>
-	<div class="absolute inset-0 bg-black/60"></div>
+	<div class="absolute inset-0 bg-black/70"></div>
 
 	<div
-		class="relative w-full max-w-2xl bg-base-200 rounded-t-2xl p-6 pb-8 max-h-[70vh] overflow-y-auto animate-slide-up"
+		class="relative w-full max-w-lg glass-panel rounded-t-3xl p-6 pb-8 max-h-[70vh] overflow-y-auto"
+		style="animation: slide-up 0.3s ease-out"
 		onclick={(e) => e.stopPropagation()}
 	>
-		<div class="w-12 h-1 bg-base-300 rounded-full mx-auto mb-4"></div>
+		<!-- Handle -->
+		<div class="w-10 h-1 bg-base-content/10 rounded-full mx-auto mb-5"></div>
 
-		<h3 class="text-lg font-bold text-primary mb-1">{item.name}</h3>
-		<p class="text-sm text-base-content/50 mb-4">{item.price.toLocaleString("ru-RU")} ₽ · {item.weight}</p>
+		<!-- Dish info -->
+		<h3 class="font-display text-xl font-semibold text-primary mb-1">{item.name}</h3>
+		<p class="text-sm text-base-content/40 mb-5">
+			{item.price} ₽ · {item.weight}
+		</p>
 
-		<div class="text-base-content/80 text-sm leading-relaxed min-h-[60px]">
+		<!-- AI response -->
+		<div class="text-base-content/70 text-sm leading-relaxed min-h-[40px]">
 			{#if error}
-				<p class="text-error">Ошибка: {error}</p>
+				<p class="text-error">{error}</p>
 			{:else if text}
-				<p class="whitespace-pre-wrap">{text}</p>
+				<p>{text}</p>
 			{:else}
-				<div class="flex gap-1">
-					<span class="loading loading-dots loading-sm text-primary"></span>
-					<span class="text-base-content/40">AI-официант думает...</span>
+				<div class="flex items-center gap-2">
+					<span class="loading loading-dots loading-xs text-primary"></span>
+					<span class="text-base-content/30 text-xs">AI-официант думает...</span>
 				</div>
 			{/if}
 		</div>
 
+		<!-- Allergens -->
 		{#if item.allergens.length > 0}
-			<div class="mt-4 p-2 bg-base-300 rounded-lg">
-				<p class="text-xs text-warning">Аллергены: {item.allergens.join(", ")}</p>
+			<div class="mt-5 pt-3 border-t border-base-300/30">
+				<p class="text-xs text-warning/50">
+					⚠ Аллергены: {item.allergens.join(" · ")}
+				</p>
 			</div>
 		{/if}
 
-		<p class="text-xs text-base-content/30 mt-4">
-			Информация об аллергенах может быть неполной. Уточняйте у официанта.
+		<p class="text-[10px] text-base-content/15 mt-4">
+			Аллергены уточняйте у официанта
 		</p>
 	</div>
 </div>
 
 <style>
 	@keyframes slide-up {
-		from { transform: translateY(100%); }
-		to { transform: translateY(0); }
-	}
-	.animate-slide-up {
-		animation: slide-up 0.3s ease-out;
+		from { transform: translateY(100%); opacity: 0.8; }
+		to { transform: translateY(0); opacity: 1; }
 	}
 </style>

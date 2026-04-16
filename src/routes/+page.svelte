@@ -97,20 +97,21 @@
 	});
 </script>
 
-<div class="max-w-2xl mx-auto px-4 pt-4 pb-24">
+<div class="max-w-2xl mx-auto px-4 pt-4 pb-24 bg-grain">
 	<!-- Header -->
-	<div class="flex items-center justify-between mb-4">
-		<h1 class="text-xl font-bold text-primary">Янтарный берег</h1>
-		<div class="flex items-center gap-2">
-			{#if !session.isDemoMode}
-				<span class="text-xs text-base-content/40">Стол {session.tableNumber}</span>
-			{/if}
+	<div class="flex items-center justify-between mb-5">
+		<div>
+			<h1 class="font-display text-2xl font-semibold text-primary tracking-wide">Янтарный берег</h1>
+			<p class="text-[11px] text-base-content/30 tracking-widest uppercase">Калининград</p>
 		</div>
+		{#if !session.isDemoMode}
+			<span class="text-xs text-base-content/30 bg-base-200 px-3 py-1 rounded-full">стол {session.tableNumber}</span>
+		{/if}
 	</div>
 
 	<!-- Returning guest -->
 	{#if guest.greeting}
-		<p class="text-sm text-base-content/50 mb-3">{guest.greeting}</p>
+		<p class="text-sm text-base-content/40 italic mb-3">{guest.greeting}</p>
 	{/if}
 
 	<!-- Search + Filter toggle -->
@@ -162,7 +163,7 @@
 	<!-- Menu -->
 	{#each groupedItems as group}
 		{#if group.category}
-			<h2 class="text-base font-semibold text-base-content/70 mt-5 mb-3">{group.category}</h2>
+			<h2 class="font-display text-xl font-semibold text-base-content/60 mt-6 mb-3">{group.category}</h2>
 		{/if}
 		<div class="grid grid-cols-2 gap-3">
 			{#each group.items as item (item.id)}
@@ -179,28 +180,28 @@
 </div>
 
 <!-- Bottom navigation -->
-<nav class="fixed bottom-0 left-0 right-0 bg-base-200/95 backdrop-blur border-t border-base-300 safe-bottom z-40">
+<nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-base-300/30 safe-bottom z-40">
 	<div class="max-w-2xl mx-auto flex">
-		<a href="{base}/" class="flex-1 flex flex-col items-center py-2 text-primary">
+		<a href="{base}/" class="flex-1 flex flex-col items-center gap-0.5 py-2.5 text-primary">
 			<span class="text-lg">🍽</span>
-			<span class="text-[10px]">Меню</span>
+			<span class="text-[10px] font-medium tracking-wide">Меню</span>
 		</a>
-		<a href="{base}/quiz/" class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary">
+		<a href="{base}/quiz/" class="flex-1 flex flex-col items-center gap-0.5 py-2.5 text-base-content/40 hover:text-primary transition-colors">
 			<span class="text-lg">🎯</span>
-			<span class="text-[10px]">Подбор</span>
+			<span class="text-[10px] font-medium tracking-wide">Подбор</span>
 		</a>
-		<a href="{base}/chat/" class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary">
+		<a href="{base}/chat/" class="flex-1 flex flex-col items-center gap-0.5 py-2.5 text-base-content/40 hover:text-primary transition-colors">
 			<span class="text-lg">💬</span>
-			<span class="text-[10px]">AI-чат</span>
+			<span class="text-[10px] font-medium tracking-wide">AI-чат</span>
 		</a>
 		<button
-			class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary relative"
+			class="flex-1 flex flex-col items-center gap-0.5 py-2.5 text-base-content/40 hover:text-primary transition-colors relative"
 			onclick={() => showCart = true}
 		>
 			<span class="text-lg">🛒</span>
-			<span class="text-[10px]">Выбор</span>
+			<span class="text-[10px] font-medium tracking-wide">Выбор</span>
 			{#if cart.count > 0}
-				<span class="badge badge-primary badge-xs absolute top-1 right-1/4">{cart.count}</span>
+				<span class="absolute top-1.5 right-1/4 w-4 h-4 bg-primary text-primary-content text-[9px] font-bold rounded-full flex items-center justify-center">{cart.count}</span>
 			{/if}
 		</button>
 	</div>
