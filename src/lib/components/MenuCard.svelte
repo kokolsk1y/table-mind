@@ -1,10 +1,18 @@
 <script>
 	import { base } from "$app/paths";
 	import InlineAI from "./InlineAI.svelte";
+	import { cart } from "$lib/stores/cart.svelte.js";
 
 	let { item, compact = false } = $props();
 	let imgFailed = $state(false);
 	let showAI = $state(false);
+	let added = $state(false);
+
+	function addToCart() {
+		cart.add(item);
+		added = true;
+		setTimeout(() => { added = false; }, 1000);
+	}
 
 	function formatPrice(price) {
 		return price.toLocaleString("ru-RU") + " ₽";
@@ -62,6 +70,13 @@
 						title="Спросить AI"
 					>
 						✨
+					</button>
+					<button
+						class="btn btn-ghost btn-xs"
+						onclick={addToCart}
+						title="Добавить в выбор"
+					>
+						{added ? "✓" : "+"}
 					</button>
 				{/if}
 				<span class="text-lg font-bold text-primary">{formatPrice(item.price)}</span>

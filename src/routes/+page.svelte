@@ -7,6 +7,8 @@
 	import MenuCard from "$lib/components/MenuCard.svelte";
 	import CategoryFilter from "$lib/components/CategoryFilter.svelte";
 	import TagFilter from "$lib/components/TagFilter.svelte";
+	import CartPanel from "$lib/components/CartPanel.svelte";
+	import { cart } from "$lib/stores/cart.svelte.js";
 
 	let allItems = $state([]);
 	let categories = $state([]);
@@ -15,6 +17,7 @@
 	let selectedCategory = $state(null);
 	let activeTags = $state(new Set());
 	let searchQuery = $state("");
+	let showCart = $state(false);
 
 	let filteredItems = $derived.by(() => {
 		let items = allItems;
@@ -80,6 +83,7 @@
 		categories = getCategories(allItems);
 		tags = getTags(allItems);
 		createSearchEngine(allItems);
+		cart.restore();
 	});
 </script>
 
@@ -141,14 +145,26 @@
 		</div>
 	{/each}
 
-	<!-- Floating chat button -->
-	<a
-		href="{base}/chat/"
-		class="fixed bottom-20 right-4 btn btn-primary btn-circle shadow-lg text-xl"
-		title="AI-официант"
-	>
-		✨
-	</a>
+	<!-- Floating buttons -->
+	<div class="fixed bottom-20 right-4 flex flex-col gap-3">
+		{#if cart.count > 0}
+			<button
+				class="btn btn-secondary btn-circle shadow-lg relative"
+				onclick={() => showCart = true}
+				title="Мой выбор"
+			>
+				🛒
+				<span class="badge badge-primary badge-xs absolute -top-1 -right-1">{cart.count}</span>
+			</button>
+		{/if}
+		<a
+			href="{base}/chat/"
+			class="btn btn-primary btn-circle shadow-lg text-xl"
+			title="AI-официант"
+		>
+			✨
+		</a>
+	</div>
 
 	<!-- Demo mode badge -->
 	{#if session.isDemoMode}
@@ -159,3 +175,7 @@
 		</div>
 	{/if}
 </div>
+
+{#if showCart}
+	<CartPanel onClose={() => showCart = false} />
+{/if}

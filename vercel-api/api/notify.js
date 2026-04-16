@@ -25,5 +25,42 @@ export default async function handler(req, res) {
 		return;
 	}
 
-	res.status(200).json({ ok: true, stub: true, endpoint: "notify" });
+	const botToken = process.env.TELEGRAM_BOT_TOKEN;
+	const chatId = process.env.TELEGRAM_CHAT_ID;
+
+	if (!botToken || !chatId) {
+		res.status(500).json({ error: "Telegram not configured" });
+		return;
+	}
+
+	const { table, items, total } = req.body || {};
+
+	if (!table || !items) {
+		res.status(400).json({ error: "table and items are required" });
+		return;
+	}
+
+	const text = `🍽 Стол №${table}\n\n${items}\n\nИтого: ${Number(total).toLocaleString("ru-RU")} ₽\n\nГость ждёт официанта`;
+
+	try {
+		const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				chat_id: chatId,
+				text,
+				parse_mode: "HTML"
+			})
+		});
+
+		if (!tgRes.ok) {
+			const err = await tgRes.text();
+			res.status(500).json({ error: "Telegram API error", details: err });
+			return;
+		}
+
+		res.status(200).json({ ok: true });
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
 }
