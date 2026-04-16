@@ -2,6 +2,7 @@
 	import "../app.css";
 	import { onMount } from "svelte";
 	import { session } from "$lib/stores/session.svelte.js";
+	import IosInstallPrompt from "$lib/components/IosInstallPrompt.svelte";
 
 	let { children } = $props();
 
@@ -38,3 +39,5 @@
 <main class="min-h-screen bg-base-100 text-base-content">
 	{@render children()}
 </main>
+
+<IosInstallPrompt />

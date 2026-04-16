@@ -1,8 +1,10 @@
 <script>
 	import { base } from "$app/paths";
+	import InlineAI from "./InlineAI.svelte";
 
-	let { item } = $props();
+	let { item, compact = false } = $props();
 	let imgFailed = $state(false);
+	let showAI = $state(false);
 
 	function formatPrice(price) {
 		return price.toLocaleString("ru-RU") + " ₽";
@@ -52,7 +54,22 @@
 
 		<div class="card-actions justify-between items-center mt-2">
 			<span class="text-xs text-base-content/40">{item.weight}</span>
-			<span class="text-lg font-bold text-primary">{formatPrice(item.price)}</span>
+			<div class="flex items-center gap-2">
+				{#if !compact}
+					<button
+						class="btn btn-ghost btn-xs text-primary"
+						onclick={() => showAI = true}
+						title="Спросить AI"
+					>
+						✨
+					</button>
+				{/if}
+				<span class="text-lg font-bold text-primary">{formatPrice(item.price)}</span>
+			</div>
 		</div>
 	</div>
 </div>
+
+{#if showAI}
+	<InlineAI {item} onClose={() => showAI = false} />
+{/if}

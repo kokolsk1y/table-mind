@@ -8,8 +8,56 @@ const CORS_HEADERS = {
 	"Access-Control-Allow-Headers": "Content-Type"
 };
 
+const MODEL = "anthropic/claude-haiku-4-5";
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+const MENU_RULES = `
+ЖЁСТКИЕ ПРАВИЛА:
+1. Ты можешь рекомендовать ТОЛЬКО блюда из каталога ниже. Никаких других.
+2. Цены, аллергены, состав — только из каталога. Если информации нет — скажи «уточните у официанта».
+3. Если гость спрашивает о блюде, которого нет в каталоге — скажи честно: «Этого блюда у нас нет, но могу предложить похожее».
+4. Никогда не придумывай ингредиенты, которых нет в описании.
+5. При вопросах об аллергенах: если поле allergens пустое — скажи «точные данные об аллергенах уточните у официанта».
+6. Упоминай ID блюда в скобках после названия, например: Борщ (borshch-01) — это нужно для отображения карточек.
+`;
+
+const STYLE_INTROS = {
+	detailed: `Ты — дружелюбный и знающий AI-официант ресторана «Янтарный берег» в Калининграде.
+Рассказывай о блюдах увлечённо: история, способ приготовления, с чем сочетается, что рекомендуешь к нему.
+Будь тёплым и внимательным, как лучший официант в хорошем ресторане. Не навязывай, но предлагай.
+Отвечай развёрнуто, 3-5 предложений.`,
+	brief: `Ты — AI-официант ресторана «Янтарный берег» в Калининграде.
+Отвечай кратко и по существу: название, цена, вес, ключевые ингредиенты, аллергены.
+Максимум 2-3 предложения. Без лирики, только факты.`,
+	guide: `Ты — AI-официант ресторана «Янтарный берег» в Калининграде.
+Твоя задача — помочь гостю выбрать. Задавай уточняющие вопросы: что любит, на что настроен, есть ли ограничения.
+После 2-3 вопросов предложи 2-3 варианта из каталога с кратким объяснением почему именно они.
+Будь как заботливый друг, который хорошо знает это место.`
+};
+
+const VERIFIER_PROMPT = `Ты — верификатор ответов AI-официанта ресторана.
+Тебе дан ответ AI-официанта и каталог блюд. Проверь:
+1. Все упомянутые блюда есть в каталоге?
+2. Цены совпадают?
+3. Аллергены не выдуманы?
+4. Ингредиенты соответствуют описанию?
+
+Ответь СТРОГО в формате JSON:
+{"verdict": "ok"} — если всё корректно
+{"verdict": "warning", "note": "краткое описание проблемы"} — если найдено несоответствие
+
+Ничего кроме JSON не пиши.`;
+
 function setCors(res) {
 	for (const [k, v] of Object.entries(CORS_HEADERS)) res.setHeader(k, v);
+}
+
+function buildSystemPrompt(agent, style, catalog) {
+	if (agent === "verifier") {
+		return VERIFIER_PROMPT + "\n\nКАТАЛОГ:\n" + catalog;
+	}
+	const intro = STYLE_INTROS[style] || STYLE_INTROS.detailed;
+	return `${intro}\n${MENU_RULES}\nКАТАЛОГ РЕСТОРАНА «ЯНТАРНЫЙ БЕРЕГ»:\n${catalog}`;
 }
 
 export default async function handler(req, res) {
@@ -25,5 +73,88 @@ export default async function handler(req, res) {
 		return;
 	}
 
-	res.status(200).json({ ok: true, stub: true, runtime: "nodejs" });
+	const apiKey = process.env.OPENROUTER_API_KEY;
+	if (!apiKey) {
+		res.status(500).json({ error: "OPENROUTER_API_KEY not configured" });
+		return;
+	}
+
+	const { agent = "waiter", style = "detailed", message, history = [], catalog = "", stream = true } = req.body || {};
+
+	if (!message) {
+		res.status(400).json({ error: "message is required" });
+		return;
+	}
+
+	const systemPrompt = buildSystemPrompt(agent, style, catalog);
+
+	const messages = [
+		{ role: "system", content: systemPrompt },
+		...history.slice(-20),
+		{ role: "user", content: message }
+	];
+
+	const orBody = {
+		model: MODEL,
+		messages,
+		max_tokens: agent === "verifier" ? 256 : 1024,
+		temperature: agent === "verifier" ? 0.1 : 0.3,
+		stream: stream !== false
+	};
+
+	try {
+		const orRes = await fetch(OPENROUTER_URL, {
+			method: "POST",
+			headers: {
+				"Authorization": `Bearer ${apiKey}`,
+				"Content-Type": "application/json",
+				"HTTP-Referer": "https://kokolsk1y.github.io/table-mind/",
+				"X-Title": "TableMind"
+			},
+			body: JSON.stringify(orBody)
+		});
+
+		if (!orRes.ok) {
+			const errText = await orRes.text();
+			res.status(orRes.status).json({ error: errText });
+			return;
+		}
+
+		// Non-streaming (verifier)
+		if (stream === false) {
+			const data = await orRes.json();
+			const content = data.choices?.[0]?.message?.content || "";
+			try {
+				const parsed = JSON.parse(content);
+				res.status(200).json(parsed);
+			} catch {
+				res.status(200).json({ verdict: "ok", raw: content });
+			}
+			return;
+		}
+
+		// Streaming
+		res.setHeader("Content-Type", "text/event-stream");
+		res.setHeader("Cache-Control", "no-cache");
+		res.setHeader("Connection", "keep-alive");
+		res.setHeader("X-Accel-Buffering", "no");
+
+		const reader = orRes.body.getReader();
+		const decoder = new TextDecoder();
+
+		while (true) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			const chunk = decoder.decode(value, { stream: true });
+			res.write(chunk);
+		}
+
+		res.end();
+	} catch (err) {
+		if (!res.headersSent) {
+			res.status(500).json({ error: err.message || "Internal server error" });
+		} else {
+			res.end();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { base } from "$app/paths";
 	import { session } from "$lib/stores/session.svelte.js";
 	import { loadCatalog, getCategories, getTags } from "$lib/data/catalog.js";
 	import { createSearchEngine, searchItems } from "$lib/search/engine.js";
@@ -139,6 +140,15 @@
 			{/each}
 		</div>
 	{/each}
+
+	<!-- Floating chat button -->
+	<a
+		href="{base}/chat/"
+		class="fixed bottom-20 right-4 btn btn-primary btn-circle shadow-lg text-xl"
+		title="AI-официант"
+	>
+		✨
+	</a>
 
 	<!-- Demo mode badge -->
 	{#if session.isDemoMode}
