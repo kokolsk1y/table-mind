@@ -2,10 +2,10 @@
 	let { tags, activeTags, onToggle } = $props();
 </script>
 
-<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+<div class="flex flex-wrap gap-2">
 	{#each tags as tag}
 		<button
-			class="btn btn-xs whitespace-nowrap {activeTags.has(tag) ? 'btn-accent' : 'btn-outline btn-ghost'}"
+			class="px-3 py-1 rounded-full text-xs font-medium transition-colors border {activeTags.has(tag) ? 'bg-accent text-accent-content border-accent' : 'bg-transparent text-base-content/60 border-base-300 hover:border-base-content/30'}"
 			onclick={() => onToggle(tag)}
 		>
 			{tag}

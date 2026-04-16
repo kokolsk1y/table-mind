@@ -11,77 +11,71 @@
 	function addToCart() {
 		cart.add(item);
 		added = true;
-		setTimeout(() => { added = false; }, 1000);
-	}
-
-	function formatPrice(price) {
-		return price.toLocaleString("ru-RU") + " ₽";
-	}
-
-	function handleImgError() {
-		imgFailed = true;
+		setTimeout(() => { added = false; }, 1200);
 	}
 </script>
 
-<div class="card bg-base-200 shadow-md hover:shadow-lg transition-shadow">
-	<figure class="relative h-48 overflow-hidden">
+<div class="bg-base-200 rounded-2xl overflow-hidden shadow-sm">
+	<!-- Photo -->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="relative h-40 overflow-hidden cursor-pointer" role="button" tabindex="0" onclick={() => showAI = true}>
 		{#if !imgFailed}
 			<img
 				src="{base}/{item.photo}"
 				alt={item.name}
 				class="w-full h-full object-cover"
 				loading="lazy"
-				onerror={handleImgError}
+				onerror={() => imgFailed = true}
 			/>
 		{:else}
-			<div class="flex items-center justify-center w-full h-full bg-base-300 text-base-content/30 text-4xl">
+			<div class="flex items-center justify-center w-full h-full bg-base-300 text-base-content/20 text-5xl">
 				🍽
 			</div>
 		{/if}
 		{#if item.spicy}
-			<span class="badge badge-error badge-sm absolute top-2 right-2">🌶</span>
+			<span class="absolute top-2 right-2 bg-error/90 text-white text-xs px-2 py-0.5 rounded-full">🌶 острое</span>
 		{/if}
-	</figure>
+		{#if item.vegetarian}
+			<span class="absolute top-2 left-2 bg-success/90 text-white text-xs px-2 py-0.5 rounded-full">🌱</span>
+		{/if}
+	</div>
 
-	<div class="card-body p-4 gap-2">
-		<h3 class="card-title text-base font-semibold leading-tight">{item.name}</h3>
-
-		<p class="text-sm text-base-content/60 line-clamp-2">{item.description}</p>
-
-		<div class="flex flex-wrap gap-1 mt-1">
-			{#each item.tags as tag}
-				<span class="badge badge-outline badge-xs">{tag}</span>
-			{/each}
+	<!-- Content -->
+	<div class="p-3">
+		<!-- Name + Price row -->
+		<div class="flex items-start justify-between gap-2 mb-1">
+			<h3 class="font-semibold text-sm leading-snug flex-1">{item.name}</h3>
+			<span class="text-primary font-bold text-base whitespace-nowrap">{item.price} ₽</span>
 		</div>
 
+		<!-- Weight -->
+		<p class="text-xs text-base-content/40 mb-2">{item.weight}</p>
+
+		<!-- Allergens (important — visible) -->
 		{#if item.allergens.length > 0}
-			<p class="text-xs text-warning/70 mt-1">
-				Аллергены: {item.allergens.join(", ")}
+			<p class="text-xs text-warning/80 mb-2">
+				⚠ {item.allergens.join(", ")}
 			</p>
 		{/if}
 
-		<div class="card-actions justify-between items-center mt-2">
-			<span class="text-xs text-base-content/40">{item.weight}</span>
-			<div class="flex items-center gap-2">
-				{#if !compact}
-					<button
-						class="btn btn-ghost btn-xs text-primary"
-						onclick={() => showAI = true}
-						title="Спросить AI"
-					>
-						✨
-					</button>
-					<button
-						class="btn btn-ghost btn-xs"
-						onclick={addToCart}
-						title="Добавить в выбор"
-					>
-						{added ? "✓" : "+"}
-					</button>
-				{/if}
-				<span class="text-lg font-bold text-primary">{formatPrice(item.price)}</span>
+		<!-- Actions -->
+		{#if !compact}
+			<div class="flex gap-2">
+				<button
+					class="btn btn-sm btn-ghost flex-1 text-primary"
+					onclick={() => showAI = true}
+				>
+					✨ Подробнее
+				</button>
+				<button
+					class="btn btn-sm btn-primary flex-1"
+					onclick={addToCart}
+				>
+					{added ? "✓ Добавлено" : "+ В выбор"}
+				</button>
 			</div>
-		</div>
+		{/if}
 	</div>
 </div>
 

@@ -19,6 +19,7 @@
 	let activeTags = $state(new Set());
 	let searchQuery = $state("");
 	let showCart = $state(false);
+	let showFilters = $state(false);
 
 	let filteredItems = $derived.by(() => {
 		let items = allItems;
@@ -65,6 +66,8 @@
 		return groups;
 	});
 
+	let activeFilterCount = $derived((selectedCategory ? 1 : 0) + activeTags.size);
+
 	function handleCategorySelect(cat) {
 		selectedCategory = cat;
 	}
@@ -79,6 +82,12 @@
 		activeTags = next;
 	}
 
+	function clearFilters() {
+		selectedCategory = null;
+		activeTags = new Set();
+		searchQuery = "";
+	}
+
 	onMount(async () => {
 		allItems = await loadCatalog();
 		categories = getCategories(allItems);
@@ -88,108 +97,121 @@
 	});
 </script>
 
-<div class="max-w-2xl mx-auto px-4 py-6">
+<div class="max-w-2xl mx-auto px-4 pt-4 pb-24">
 	<!-- Header -->
-	<div class="flex items-center justify-between mb-6">
-		<div>
-			<h1 class="text-2xl font-bold text-primary">Янтарный берег</h1>
-			<p class="text-sm text-base-content/50">AI-меню ресторана</p>
+	<div class="flex items-center justify-between mb-4">
+		<h1 class="text-xl font-bold text-primary">Янтарный берег</h1>
+		<div class="flex items-center gap-2">
+			{#if !session.isDemoMode}
+				<span class="text-xs text-base-content/40">Стол {session.tableNumber}</span>
+			{/if}
 		</div>
-		{#if !session.isDemoMode}
-			<div class="badge badge-primary badge-outline">Стол №{session.tableNumber}</div>
-		{/if}
 	</div>
 
-	<!-- Returning guest greeting -->
+	<!-- Returning guest -->
 	{#if guest.greeting}
-		<div class="alert bg-base-200 border-primary/20 mb-4">
-			<span class="text-sm">{guest.greeting}</span>
-		</div>
+		<p class="text-sm text-base-content/50 mb-3">{guest.greeting}</p>
 	{/if}
 
-	<!-- Search -->
-	<div class="mb-4">
+	<!-- Search + Filter toggle -->
+	<div class="flex gap-2 mb-3">
 		<input
 			type="text"
 			placeholder="Поиск блюд..."
-			class="input input-bordered w-full bg-base-200"
+			class="input input-sm bg-base-200 flex-1"
 			bind:value={searchQuery}
 		/>
+		<button
+			class="btn btn-sm btn-ghost relative"
+			onclick={() => showFilters = !showFilters}
+		>
+			Фильтры
+			{#if activeFilterCount > 0}
+				<span class="badge badge-primary badge-xs absolute -top-1 -right-1">{activeFilterCount}</span>
+			{/if}
+		</button>
 	</div>
 
-	<!-- Category filter -->
-	{#if categories.length > 0}
-		<div class="mb-3">
-			<CategoryFilter {categories} selected={selectedCategory} onSelect={handleCategorySelect} />
+	<!-- Filters (collapsible) -->
+	{#if showFilters}
+		<div class="bg-base-200 rounded-xl p-3 mb-4 space-y-3">
+			<div>
+				<p class="text-xs text-base-content/40 mb-2">Категории</p>
+				<CategoryFilter {categories} selected={selectedCategory} onSelect={handleCategorySelect} />
+			</div>
+			<div>
+				<p class="text-xs text-base-content/40 mb-2">Предпочтения</p>
+				<TagFilter {tags} {activeTags} onToggle={handleTagToggle} />
+			</div>
+			{#if activeFilterCount > 0}
+				<button class="btn btn-xs btn-ghost text-error" onclick={clearFilters}>Сбросить фильтры</button>
+			{/if}
 		</div>
 	{/if}
 
-	<!-- Tag filter -->
-	{#if tags.length > 0}
-		<div class="mb-4">
-			<TagFilter {tags} {activeTags} onToggle={handleTagToggle} />
-		</div>
-	{/if}
-
-	<!-- Results count -->
-	{#if searchQuery.trim() || activeTags.size > 0 || selectedCategory}
-		<p class="text-sm text-base-content/40 mb-4">
+	<!-- Results info -->
+	{#if searchQuery.trim() || activeFilterCount > 0}
+		<p class="text-xs text-base-content/40 mb-3">
 			Найдено: {filteredItems.length}
 			{#if filteredItems.length === 0}
-				— попробуйте изменить фильтры
+				— попробуйте другой запрос
 			{/if}
 		</p>
 	{/if}
 
-	<!-- Menu grid -->
+	<!-- Menu -->
 	{#each groupedItems as group}
 		{#if group.category}
-			<h2 class="text-lg font-semibold text-base-content/80 mt-6 mb-3">{group.category}</h2>
+			<h2 class="text-base font-semibold text-base-content/70 mt-5 mb-3">{group.category}</h2>
 		{/if}
-		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		<div class="grid grid-cols-2 gap-3">
 			{#each group.items as item (item.id)}
 				<MenuCard {item} />
 			{/each}
 		</div>
 	{/each}
 
-	<!-- Floating buttons -->
-	<div class="fixed bottom-20 right-4 flex flex-col gap-3">
-		{#if cart.count > 0}
-			<button
-				class="btn btn-secondary btn-circle shadow-lg relative"
-				onclick={() => showCart = true}
-				title="Мой выбор"
-			>
-				🛒
-				<span class="badge badge-primary badge-xs absolute -top-1 -right-1">{cart.count}</span>
-			</button>
-		{/if}
-		<a
-			href="{base}/quiz/"
-			class="btn btn-accent btn-circle shadow-lg text-lg"
-			title="Подбор ужина"
-		>
-			🎯
-		</a>
-		<a
-			href="{base}/chat/"
-			class="btn btn-primary btn-circle shadow-lg text-xl"
-			title="AI-официант"
-		>
-			✨
-		</a>
-	</div>
-
-	<!-- Demo mode badge -->
-	{#if session.isDemoMode}
-		<div class="fixed bottom-4 left-4 right-4 max-w-2xl mx-auto">
-			<div class="alert bg-base-200 border-base-300 shadow-lg">
-				<span class="text-sm">📱 Демо-режим. Отсканируйте QR-код на столе для полного доступа.</span>
-			</div>
+	{#if allItems.length === 0}
+		<div class="flex items-center justify-center py-20">
+			<span class="loading loading-spinner loading-lg text-primary"></span>
 		</div>
 	{/if}
 </div>
+
+<!-- Bottom navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-base-200/95 backdrop-blur border-t border-base-300 safe-bottom z-40">
+	<div class="max-w-2xl mx-auto flex">
+		<a href="{base}/" class="flex-1 flex flex-col items-center py-2 text-primary">
+			<span class="text-lg">🍽</span>
+			<span class="text-[10px]">Меню</span>
+		</a>
+		<a href="{base}/quiz/" class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary">
+			<span class="text-lg">🎯</span>
+			<span class="text-[10px]">Подбор</span>
+		</a>
+		<a href="{base}/chat/" class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary">
+			<span class="text-lg">💬</span>
+			<span class="text-[10px]">AI-чат</span>
+		</a>
+		<button
+			class="flex-1 flex flex-col items-center py-2 text-base-content/50 hover:text-primary relative"
+			onclick={() => showCart = true}
+		>
+			<span class="text-lg">🛒</span>
+			<span class="text-[10px]">Выбор</span>
+			{#if cart.count > 0}
+				<span class="badge badge-primary badge-xs absolute top-1 right-1/4">{cart.count}</span>
+			{/if}
+		</button>
+	</div>
+</nav>
+
+<!-- Demo badge -->
+{#if session.isDemoMode}
+	<div class="fixed top-0 left-0 right-0 bg-warning/10 text-center py-1 z-30">
+		<span class="text-xs text-warning">Демо-режим · QR-код для полного доступа</span>
+	</div>
+{/if}
 
 {#if showCart}
 	<CartPanel onClose={() => showCart = false} />
