@@ -166,6 +166,13 @@
 			</button>
 		{/if}
 		<a
+			href="{base}/quiz/"
+			class="btn btn-accent btn-circle shadow-lg text-lg"
+			title="Подбор ужина"
+		>
+			🎯
+		</a>
+		<a
 			href="{base}/chat/"
 			class="btn btn-primary btn-circle shadow-lg text-xl"
 			title="AI-официант"
