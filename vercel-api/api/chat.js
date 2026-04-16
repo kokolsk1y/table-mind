@@ -19,7 +19,8 @@ const MENU_RULES = `
 4. Никогда не придумывай ингредиенты, которых нет в описании.
 5. При вопросах об аллергенах: если поле allergens пустое — скажи «точные данные об аллергенах уточните у официанта».
 6. ОТВЕЧАЙ НА ТОМ ЖЕ ЯЗЫКЕ, на котором пишет гость.
-7. НЕ показывай технические ID блюд (вроде sudak-na-grile). Используй только красивые названия. Если гость пишет на английском — отвечай на английском. Если на немецком — на немецком. По умолчанию — русский.
+7. НЕ показывай технические ID блюд. Используй только красивые названия.
+8. Пиши ТОЛЬКО обычным текстом. Без маркдауна, без звёздочек, без списков с точками, без форматирования. Просто живой разговорный текст, как настоящий официант говорит устно. Если гость пишет на английском — отвечай на английском. Если на немецком — на немецком. По умолчанию — русский.
 `;
 
 const STYLE_INTROS = {
@@ -133,6 +134,7 @@ export default async function handler(req, res) {
 			headers: {
 				"Authorization": `Bearer ${apiKey}`,
 				"Content-Type": "application/json",
+				"Accept-Encoding": "identity",
 				"HTTP-Referer": "https://kokolsk1y.github.io/table-mind/",
 				"X-Title": "TableMind"
 			},
@@ -160,9 +162,11 @@ export default async function handler(req, res) {
 
 		// Streaming
 		res.setHeader("Content-Type", "text/event-stream");
-		res.setHeader("Cache-Control", "no-cache");
+		res.setHeader("Cache-Control", "no-cache, no-transform");
 		res.setHeader("Connection", "keep-alive");
 		res.setHeader("X-Accel-Buffering", "no");
+		res.setHeader("Transfer-Encoding", "chunked");
+		res.flushHeaders();
 
 		const reader = orRes.body.getReader();
 		const decoder = new TextDecoder();
@@ -172,6 +176,7 @@ export default async function handler(req, res) {
 			if (done) break;
 			const chunk = decoder.decode(value, { stream: true });
 			res.write(chunk);
+			if (typeof res.flush === "function") res.flush();
 		}
 
 		res.end();

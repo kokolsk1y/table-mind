@@ -61,20 +61,12 @@
 
 		<!-- Actions -->
 		{#if !compact}
-			<div class="flex gap-2">
-				<button
-					class="btn btn-sm btn-ghost flex-1 text-primary"
-					onclick={() => showAI = true}
-				>
-					✨ Подробнее
-				</button>
-				<button
-					class="btn btn-sm btn-primary flex-1"
-					onclick={addToCart}
-				>
-					{added ? "✓ Добавлено" : "+ В выбор"}
-				</button>
-			</div>
+			<button
+				class="btn btn-sm btn-primary w-full"
+				onclick={addToCart}
+			>
+				{added ? "✓ Добавлено" : "+ В выбор"}
+			</button>
 		{/if}
 	</div>
 </div>

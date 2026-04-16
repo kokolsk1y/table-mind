@@ -15,48 +15,48 @@
 	const questions = [
 		{
 			key: "mood",
-			text: "На что вы сегодня настроены?",
+			text: "На что вы настроены?",
 			options: [
-				{ label: "Лёгкий перекус", value: "лёгкое" },
-				{ label: "Плотный ужин", value: "сытное" },
-				{ label: "Что-то особенное", value: "необычное" }
+				{ label: "Лёгкий перекус", icon: "🥗", value: "лёгкое" },
+				{ label: "Плотный ужин", icon: "🥩", value: "сытное" },
+				{ label: "Что-то особенное", icon: "✨", value: "необычное" }
 			]
 		},
 		{
 			key: "restriction",
-			text: "Есть ограничения в еде?",
+			text: "Есть ограничения?",
 			options: [
-				{ label: "Нет ограничений", value: "нет" },
-				{ label: "Без мяса", value: "без мяса" },
-				{ label: "Без глютена", value: "без глютена" },
-				{ label: "Без молочного", value: "без молочного" }
+				{ label: "Нет ограничений", icon: "👍", value: "нет" },
+				{ label: "Без мяса", icon: "🌱", value: "без мяса" },
+				{ label: "Без глютена", icon: "🌾", value: "без глютена" },
+				{ label: "Без молочного", icon: "🥛", value: "без молочного" }
 			]
 		},
 		{
 			key: "spicy",
-			text: "Как относитесь к острому?",
+			text: "Острое?",
 			options: [
-				{ label: "Люблю острое", value: "люблю" },
-				{ label: "Нейтрально", value: "нейтрально" },
-				{ label: "Не ем острое", value: "не ем" }
+				{ label: "Люблю", icon: "🌶", value: "люблю" },
+				{ label: "Нейтрально", icon: "👌", value: "нейтрально" },
+				{ label: "Не ем", icon: "🚫", value: "не ем" }
 			]
 		},
 		{
 			key: "portion",
-			text: "Формат ужина?",
+			text: "Формат?",
 			options: [
-				{ label: "Одно основное блюдо", value: "одно блюдо" },
-				{ label: "Полный сет (закуска + основное + десерт)", value: "полный сет" },
-				{ label: "Несколько закусок для компании", value: "закуски" }
+				{ label: "Одно блюдо", icon: "🍽", value: "одно блюдо" },
+				{ label: "Полный сет", icon: "🎯", value: "полный сет" },
+				{ label: "Закуски на компанию", icon: "🫂", value: "закуски" }
 			]
 		},
 		{
 			key: "drink",
-			text: "Что будете пить?",
+			text: "Напиток?",
 			options: [
-				{ label: "Алкоголь (вино/пиво/коктейль)", value: "алкоголь" },
-				{ label: "Безалкогольное", value: "безалкогольное" },
-				{ label: "Пусть AI подберёт", value: "на выбор AI" }
+				{ label: "Алкоголь", icon: "🍷", value: "алкоголь" },
+				{ label: "Безалкогольное", icon: "🧃", value: "безалкогольное" },
+				{ label: "На ваш выбор", icon: "🤷", value: "на выбор AI" }
 			]
 		}
 	];
@@ -78,16 +78,27 @@
 		const catalog = formatCatalogForAI(allItems);
 
 		const message = `Гость прошёл тест. Предпочтения: ${prefs}.
-Составь 3 именованных комплекса (закуска + основное + напиток + десерт если выбран полный сет).
-Каждому комплексу дай характерное название (не "Вариант 1").
-Средний по цене покажи вторым.
-Используй ТОЛЬКО блюда из каталога. Не показывай технические ID.
-Формат: название комплекса, затем список блюд с ценами, итого по комплексу.`;
+Составь 3 комплекса. Каждому дай короткое яркое название с эмодзи.
+Используй ТОЛЬКО блюда из каталога.
+
+ВАЖНО: пиши ТОЛЬКО простым текстом. Без маркдауна, без звёздочек, без решёток, без ---. Просто текст.
+
+Формат ответа (строго):
+
+🌶 Острый балтийский вечер
+
+Креветки в чесночном масле — 750₽
+Том-ям с морепродуктами — 690₽
+Янтарь Шприц — 590₽
+Итого: 2 030₽
+
+(пустая строка между комплексами, итого без звёздочек)`;
 
 		streamChat({
 			agent: "waiter",
 			style: "detailed",
 			message,
+			history: [],
 			catalog,
 			onChunk(text) {
 				resultText = text;
@@ -116,62 +127,71 @@
 	});
 </script>
 
-<div class="flex flex-col min-h-screen max-w-2xl mx-auto">
+<div class="flex flex-col min-h-screen max-w-md mx-auto">
+	<!-- Header -->
 	<div class="flex items-center gap-3 p-4 border-b border-base-300">
-		<a href="{base}/" class="btn btn-ghost btn-sm">← Меню</a>
-		<h1 class="font-semibold flex-1">Подбор ужина</h1>
+		<a href="{base}/" class="text-base-content/50 text-sm">← Меню</a>
+		<h1 class="font-semibold flex-1 text-center">Подбор ужина</h1>
+		<div class="w-12"></div>
 	</div>
 
-	<div class="flex-1 p-6">
-		{#if results || loading}
-			<!-- Results -->
-			<div class="mb-4">
-				<h2 class="text-xl font-bold text-primary mb-4">Ваши комплексы</h2>
-				<div class="bg-base-200 rounded-xl p-4">
-					{#if resultText}
-						<p class="whitespace-pre-wrap text-sm leading-relaxed">{resultText}</p>
-					{:else}
-						<div class="flex items-center gap-2">
-							<span class="loading loading-dots loading-sm text-primary"></span>
-							<span class="text-base-content/40">Подбираю комплексы...</span>
-						</div>
-					{/if}
-				</div>
-				{#if !loading}
-					<button class="btn btn-outline btn-sm mt-4" onclick={restart}>Пройти заново</button>
+	{#if results || loading}
+		<!-- Results -->
+		<div class="flex-1 p-5 overflow-y-auto">
+			<h2 class="text-lg font-semibold text-primary mb-4">Ваши комплексы</h2>
+			<div class="bg-base-200 rounded-2xl p-5">
+				{#if resultText}
+					<p class="whitespace-pre-wrap text-sm leading-relaxed">{resultText}</p>
+				{:else}
+					<div class="flex items-center gap-3 py-8 justify-center">
+						<span class="loading loading-dots loading-md text-primary"></span>
+						<span class="text-base-content/40">Подбираю...</span>
+					</div>
 				{/if}
 			</div>
-		{:else}
-			<!-- Progress -->
-			<div class="flex gap-1 mb-6">
+			{#if !loading}
+				<div class="flex gap-3 mt-5">
+					<button class="btn btn-sm btn-ghost flex-1" onclick={restart}>Заново</button>
+					<a href="{base}/" class="btn btn-sm btn-primary flex-1">К меню</a>
+				</div>
+			{/if}
+		</div>
+	{:else}
+		<!-- Quiz -->
+		<div class="flex-1 flex flex-col p-5">
+			<!-- Progress dots -->
+			<div class="flex gap-2 justify-center mb-8">
 				{#each questions as _, i}
-					<div class="h-1 flex-1 rounded-full {i <= step ? 'bg-primary' : 'bg-base-300'}"></div>
+					<div class="w-2.5 h-2.5 rounded-full transition-colors {i < step ? 'bg-primary' : i === step ? 'bg-primary scale-125' : 'bg-base-300'}"></div>
 				{/each}
 			</div>
 
 			<!-- Question -->
 			<div class="text-center mb-8">
-				<p class="text-sm text-base-content/40 mb-2">{step + 1} из {questions.length}</p>
-				<h2 class="text-xl font-bold">{questions[step].text}</h2>
+				<h2 class="text-2xl font-bold">{questions[step].text}</h2>
 			</div>
 
 			<!-- Options -->
-			<div class="flex flex-col gap-3 max-w-sm mx-auto">
+			<div class="flex flex-col gap-3 flex-1 justify-center">
 				{#each questions[step].options as opt}
 					<button
-						class="btn btn-outline btn-primary btn-lg justify-start"
+						class="flex items-center gap-4 p-4 bg-base-200 rounded-2xl text-left hover:bg-base-300 transition-colors active:scale-[0.98]"
 						onclick={() => selectAnswer(questions[step].key, opt.value)}
 					>
-						{opt.label}
+						<span class="text-2xl">{opt.icon}</span>
+						<span class="font-medium">{opt.label}</span>
 					</button>
 				{/each}
 			</div>
-		{/if}
-	</div>
 
-	<div class="p-4">
-		<p class="text-xs text-base-content/30 text-center">
-			Информация об аллергенах может быть неполной. Уточняйте у официанта.
+			<!-- Step counter -->
+			<p class="text-center text-xs text-base-content/30 mt-6">{step + 1} / {questions.length}</p>
+		</div>
+	{/if}
+
+	<div class="p-3">
+		<p class="text-[10px] text-base-content/20 text-center">
+			Аллергены уточняйте у официанта
 		</p>
 	</div>
 </div>
