@@ -2,6 +2,7 @@
 	import "../app.css";
 	import { onMount } from "svelte";
 	import { session } from "$lib/stores/session.svelte.js";
+	import { guest } from "$lib/stores/guest.svelte.js";
 	import IosInstallPrompt from "$lib/components/IosInstallPrompt.svelte";
 
 	let { children } = $props();
@@ -22,11 +23,12 @@
 			}
 		}
 
-		const standalone = window.matchMedia("(display-mode: standalone)").matches
-			|| window.navigator.standalone === true;
+		const standalone = window.matchMedia("(display-mode: standalone)").matches;
 		if (standalone) {
 			document.documentElement.classList.add("pwa-standalone");
 		}
+
+		guest.restore();
 	});
 </script>
 

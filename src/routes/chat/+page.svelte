@@ -9,6 +9,7 @@
 	import { extractDishes } from "$lib/ai/parse.js";
 	import { STYLES } from "$lib/ai/agents.js";
 	import ChatMessage from "$lib/components/ChatMessage.svelte";
+	import VoiceInput from "$lib/components/VoiceInput.svelte";
 
 	let allItems = $state([]);
 	let searchEngine = $state(null);
@@ -177,6 +178,7 @@
 		<!-- Input -->
 		<div class="p-4 border-t border-base-300">
 			<div class="flex gap-2">
+				<VoiceInput onResult={(text) => { inputText = text; sendMessage(); }} />
 				<input
 					type="text"
 					placeholder="Спросите о меню..."

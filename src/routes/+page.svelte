@@ -9,6 +9,7 @@
 	import TagFilter from "$lib/components/TagFilter.svelte";
 	import CartPanel from "$lib/components/CartPanel.svelte";
 	import { cart } from "$lib/stores/cart.svelte.js";
+	import { guest } from "$lib/stores/guest.svelte.js";
 
 	let allItems = $state([]);
 	let categories = $state([]);
@@ -98,6 +99,13 @@
 			<div class="badge badge-primary badge-outline">Стол №{session.tableNumber}</div>
 		{/if}
 	</div>
+
+	<!-- Returning guest greeting -->
+	{#if guest.greeting}
+		<div class="alert bg-base-200 border-primary/20 mb-4">
+			<span class="text-sm">{guest.greeting}</span>
+		</div>
+	{/if}
 
 	<!-- Search -->
 	<div class="mb-4">
