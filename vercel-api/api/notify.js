@@ -1,0 +1,29 @@
+export const config = {
+	maxDuration: 10
+};
+
+const CORS_HEADERS = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Methods": "POST, OPTIONS",
+	"Access-Control-Allow-Headers": "Content-Type"
+};
+
+function setCors(res) {
+	for (const [k, v] of Object.entries(CORS_HEADERS)) res.setHeader(k, v);
+}
+
+export default async function handler(req, res) {
+	setCors(res);
+
+	if (req.method === "OPTIONS") {
+		res.status(204).end();
+		return;
+	}
+
+	if (req.method !== "POST") {
+		res.status(405).json({ error: "Method not allowed" });
+		return;
+	}
+
+	res.status(200).json({ ok: true, stub: true, endpoint: "notify" });
+}
