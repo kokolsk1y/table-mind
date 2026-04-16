@@ -3,76 +3,83 @@
 	import InlineAI from "./InlineAI.svelte";
 	import { cart } from "$lib/stores/cart.svelte.js";
 
-	let { item, compact = false } = $props();
+	let { item, compact = false, hero = false } = $props();
 	let imgFailed = $state(false);
 	let showAI = $state(false);
 	let added = $state(false);
 
-	function addToCart() {
+	function addToCart(e) {
+		e.stopPropagation();
 		cart.add(item);
 		added = true;
 		setTimeout(() => { added = false; }, 1200);
+	}
+
+	function openAI() {
+		showAI = true;
 	}
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="group bg-base-200 rounded-2xl overflow-hidden border border-base-300/50 hover:border-primary/20 transition-all duration-300">
-	<!-- Photo -->
-	<div class="relative h-36 overflow-hidden cursor-pointer" role="button" tabindex="0" onclick={() => showAI = true}>
+<div
+	class="group relative rounded-[20px] overflow-hidden cursor-pointer {hero ? 'col-span-2' : ''}"
+	role="button"
+	tabindex="0"
+	onclick={openAI}
+>
+	<!-- Photo fills entire card -->
+	<div class="relative {hero ? 'h-56' : 'h-44'} overflow-hidden">
 		{#if !imgFailed}
 			<img
 				src="{base}/{item.photo}"
 				alt={item.name}
-				class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+				class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
 				loading="lazy"
 				onerror={() => imgFailed = true}
 			/>
 		{:else}
-			<div class="flex items-center justify-center w-full h-full bg-base-300/50 text-base-content/10 text-5xl">
+			<div class="flex items-center justify-center w-full h-full bg-base-300/30 text-base-content/10 text-6xl">
 				🍽
 			</div>
 		{/if}
-		<!-- Overlay hint -->
-		<div class="absolute inset-0 bg-gradient-to-t from-base-100/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-2">
-			<span class="text-xs text-base-content/60">нажмите для подробностей</span>
-		</div>
-		{#if item.spicy}
-			<span class="absolute top-2 right-2 text-xs bg-error/80 text-white px-1.5 py-0.5 rounded-full backdrop-blur-sm">🌶</span>
-		{/if}
-		{#if item.vegetarian}
-			<span class="absolute top-2 left-2 text-xs bg-success/80 text-white px-1.5 py-0.5 rounded-full backdrop-blur-sm">🌱</span>
-		{/if}
-	</div>
 
-	<!-- Content -->
-	<div class="p-3 space-y-1.5">
-		<!-- Name (serif) -->
-		<h3 class="font-display text-base font-semibold leading-snug">{item.name}</h3>
+		<!-- Dark gradient overlay -->
+		<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-		<!-- Price + Weight -->
-		<div class="flex items-baseline justify-between">
-			<span class="font-display text-lg text-primary font-semibold">{item.price} ₽</span>
-			<span class="text-[11px] text-base-content/30">{item.weight}</span>
+		<!-- Tags top -->
+		<div class="absolute top-3 left-3 flex gap-1.5">
+			{#if item.vegetarian}
+				<span class="text-[10px] bg-white/15 backdrop-blur-md text-white/90 px-2 py-0.5 rounded-full">🌱 вег</span>
+			{/if}
+			{#if item.spicy}
+				<span class="text-[10px] bg-white/15 backdrop-blur-md text-white/90 px-2 py-0.5 rounded-full">🌶 острое</span>
+			{/if}
 		</div>
 
-		<!-- Allergens -->
-		{#if item.allergens.length > 0}
-			<p class="text-[11px] text-warning/60 leading-tight">
-				⚠ {item.allergens.join(" · ")}
-			</p>
-		{/if}
+		<!-- Content overlay at bottom -->
+		<div class="absolute bottom-0 left-0 right-0 p-4">
+			<h3 class="font-display {hero ? 'text-2xl' : 'text-lg'} font-semibold text-white leading-tight mb-1">{item.name}</h3>
+			<div class="flex items-baseline justify-between">
+				<span class="font-display {hero ? 'text-xl' : 'text-base'} text-primary font-semibold">{item.price} ₽</span>
+				<span class="text-[11px] text-white/40">{item.weight}</span>
+			</div>
 
-		<!-- Add button -->
-		{#if !compact}
-			<button
-				class="w-full mt-1 py-2 rounded-xl text-sm font-medium transition-all duration-200 {added ? 'bg-success/20 text-success' : 'bg-base-300/50 text-base-content/60 hover:bg-primary/10 hover:text-primary active:scale-[0.97]'}"
-				onclick={addToCart}
-			>
-				{added ? "✓ добавлено" : "+ в выбор"}
-			</button>
-		{/if}
+			{#if item.allergens.length > 0}
+				<p class="text-[10px] text-white/35 mt-1">⚠ {item.allergens.join(" · ")}</p>
+			{/if}
+		</div>
 	</div>
+
+	<!-- Add to cart button (floating) -->
+	{#if !compact}
+		<button
+			class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-sm transition-all duration-200 {added ? 'bg-success text-success-content scale-110' : 'bg-white/15 backdrop-blur-md text-white/90 hover:bg-primary hover:text-primary-content active:scale-90'}"
+			onclick={addToCart}
+		>
+			{added ? "✓" : "+"}
+		</button>
+	{/if}
 </div>
 
 {#if showAI}

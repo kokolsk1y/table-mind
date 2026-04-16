@@ -5,7 +5,7 @@
 <div class="flex flex-wrap gap-2">
 	{#each tags as tag}
 		<button
-			class="px-3 py-1 rounded-full text-xs font-medium transition-colors border {activeTags.has(tag) ? 'bg-accent text-accent-content border-accent' : 'bg-transparent text-base-content/60 border-base-300 hover:border-base-content/30'}"
+			class="px-3 py-1.5 rounded-full text-xs transition-all duration-200 {activeTags.has(tag) ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-base-300/30 text-base-content/40 border border-transparent hover:bg-base-300/50 active:scale-95'}"
 			onclick={() => onToggle(tag)}
 		>
 			{tag}

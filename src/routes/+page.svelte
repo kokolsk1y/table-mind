@@ -163,11 +163,14 @@
 	<!-- Menu -->
 	{#each groupedItems as group}
 		{#if group.category}
-			<h2 class="font-display text-xl font-semibold text-base-content/60 mt-6 mb-3">{group.category}</h2>
+			<div class="flex items-center gap-3 mt-8 mb-4">
+				<h2 class="font-display text-xl font-semibold text-base-content/50">{group.category}</h2>
+				<div class="flex-1 h-px bg-base-300/30"></div>
+			</div>
 		{/if}
 		<div class="grid grid-cols-2 gap-3">
-			{#each group.items as item (item.id)}
-				<MenuCard {item} />
+			{#each group.items as item, i (item.id)}
+				<MenuCard {item} hero={i === 0 && !searchQuery.trim() && activeFilterCount === 0} />
 			{/each}
 		</div>
 	{/each}
