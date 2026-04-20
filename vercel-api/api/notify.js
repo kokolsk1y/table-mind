@@ -1,3 +1,5 @@
+import { limitNotify, validateNotifyInput, rateLimitResponse } from "../lib/ratelimit.js";
+
 export const config = {
 	maxDuration: 10
 };
@@ -35,8 +37,17 @@ export default async function handler(req, res) {
 
 	const { table, items, total } = req.body || {};
 
-	if (!table || !items) {
-		res.status(400).json({ error: "table and items are required" });
+	// Валидация входа
+	const validError = validateNotifyInput({ table, items });
+	if (validError) {
+		res.status(400).json({ error: validError });
+		return;
+	}
+
+	// Rate limit по IP — защита от спама в Telegram
+	const rl = await limitNotify(req);
+	if (!rl.ok) {
+		rateLimitResponse(res, rl);
 		return;
 	}
 

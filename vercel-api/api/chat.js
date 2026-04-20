@@ -1,3 +1,5 @@
+import { limitChat, validateChatInput, rateLimitResponse } from "../lib/ratelimit.js";
+
 export const config = {
 	maxDuration: 30
 };
@@ -98,8 +100,17 @@ export default async function handler(req, res) {
 
 	const { agent = "waiter", style = "detailed", message, history = [], catalog = "", stream = true } = req.body || {};
 
-	if (!message) {
-		res.status(400).json({ error: "message is required" });
+	// Валидация входа — отсечь мусор до OpenRouter
+	const validError = validateChatInput({ message, catalog, history });
+	if (validError) {
+		res.status(400).json({ error: validError });
+		return;
+	}
+
+	// Rate limit по IP — защита от злоупотребления токенами
+	const rl = await limitChat(req);
+	if (!rl.ok) {
+		rateLimitResponse(res, rl);
 		return;
 	}
 
