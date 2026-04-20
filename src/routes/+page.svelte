@@ -11,31 +11,38 @@
 
 	/** @type {any[]} */
 	let allItems = $state([]);
-	/** @type {string | null} */
-	let activeCategory = $state(null);
 	let searchQuery = $state("");
 	let showCart = $state(false);
 
-	const categories = $derived(getCategories(allItems));
+	const filteredItems = $derived.by(() => {
+		if (searchQuery.trim()) return searchItems(searchQuery, allItems);
+		return allItems;
+	});
 
-	const displayedItems = $derived.by(() => {
-		let items = allItems;
-		if (searchQuery.trim()) items = searchItems(searchQuery, items);
-		if (activeCategory) items = items.filter((i) => i.category === activeCategory);
-		return items;
+	// Группируем по категориям — как в печатном меню, без вкладок
+	const groups = $derived.by(() => {
+		if (searchQuery.trim()) {
+			return [{ category: null, items: filteredItems }];
+		}
+		const order = getCategories(filteredItems);
+		return order
+			.map((cat) => ({
+				category: cat,
+				items: filteredItems.filter((i) => i.category === cat)
+			}))
+			.filter((g) => g.items.length > 0);
 	});
 
 	const today = new Date();
 	const monthsRoman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 	const dateStr = `${String(today.getDate()).padStart(2, "0")} · ${monthsRoman[today.getMonth()]} · ${String(today.getFullYear()).slice(-2)}`;
 
+	const slotRight = $derived(session.tableNumber ? `Стол · ${session.tableNumber}` : "Демо");
+
 	onMount(async () => {
 		allItems = await loadCatalog();
 		createSearchEngine(allItems);
 		cart.restore();
-		if (categories.length > 0 && !activeCategory) {
-			activeCategory = categories[0];
-		}
 	});
 </script>
 
@@ -44,7 +51,7 @@
 	<div class="px-5 pt-3 pb-2 border-b border-base-content/20 flex items-center justify-between masthead">
 		<span>Карта — №003</span>
 		<span>{dateStr}</span>
-		<span>Стол · {session.tableNumber ?? "07"}</span>
+		<span class={session.isDemoMode ? "text-accent" : ""}>{slotRight}</span>
 	</div>
 
 	<!-- Title -->
@@ -61,9 +68,9 @@
 		<p class="text-xs text-base-content/60 mt-1.5">сегодняшнее предложение шефа</p>
 	</div>
 
-	<!-- Search (когда юзер активно ищет) -->
-	{#if searchQuery || allItems.length > 0}
-		<div class="px-5 pt-3 pb-2">
+	<!-- Search -->
+	{#if allItems.length > 0}
+		<div class="px-5 pt-3 pb-2 border-b border-base-content/20">
 			<input
 				type="text"
 				placeholder="поиск по меню…"
@@ -75,42 +82,38 @@
 
 	<!-- Returning guest greeting -->
 	{#if guest.greeting}
-		<p class="px-5 pt-2 font-display italic text-sm text-base-content/60">
+		<p class="px-5 pt-3 font-display italic text-sm text-base-content/60">
 			{guest.greeting}
 		</p>
 	{/if}
 
-	<!-- Category tabs -->
-	{#if categories.length > 0 && !searchQuery.trim()}
-		<div class="flex overflow-x-auto px-5 pt-3 border-b border-base-content/20 no-scrollbar">
-			{#each categories as cat (cat)}
-				<button
-					class="pb-3 mr-6 font-body font-medium text-[13px] whitespace-nowrap shrink-0 transition-colors {activeCategory === cat ? 'text-base-content border-b-2 border-accent -mb-[1.5px]' : 'text-base-content/50 hover:text-base-content/80'}"
-					onclick={() => (activeCategory = cat)}
-				>
-					{cat}
-				</button>
-			{/each}
-		</div>
-	{/if}
-
-	<!-- Dishes list -->
+	<!-- Dishes by category (inline, no tabs) -->
 	<div class="px-5">
-		{#if displayedItems.length === 0 && allItems.length > 0}
-			<p class="py-16 text-center font-display italic text-base-content/50">
-				ничего не нашлось — попробуйте иначе
-			</p>
-		{/if}
-
-		{#each displayedItems as item, i (item.id)}
-			<MenuCard {item} index={i} hero={i === 0 && !searchQuery.trim()} />
-		{/each}
-
 		{#if allItems.length === 0}
 			<div class="py-20 flex flex-col items-center gap-3">
 				<span class="loading loading-spinner loading-md text-primary"></span>
 				<p class="masthead">загружаем карту…</p>
 			</div>
+		{:else if filteredItems.length === 0}
+			<p class="py-16 text-center font-display italic text-base-content/50">
+				ничего не нашлось — попробуйте иначе
+			</p>
+		{:else}
+			{#each groups as group (group.category ?? "_search")}
+				{#if group.category}
+					<div class="flex items-baseline justify-between mt-8 mb-1 pb-2 border-b border-base-content">
+						<h2 class="font-display italic text-2xl font-medium text-base-content">
+							{group.category}
+						</h2>
+						<span class="masthead tabular">
+							{String(group.items.length).padStart(2, "0")}
+						</span>
+					</div>
+				{/if}
+				{#each group.items as item, i (item.id)}
+					<MenuCard {item} index={i} />
+				{/each}
+			{/each}
 		{/if}
 	</div>
 </div>
@@ -140,18 +143,6 @@
 	</div>
 </nav>
 
-<!-- Demo badge -->
-{#if session.isDemoMode}
-	<div class="fixed top-0 left-0 right-0 bg-accent/15 text-center py-1 z-30">
-		<span class="masthead text-accent">Демо-режим · QR-код для полного доступа</span>
-	</div>
-{/if}
-
 {#if showCart}
 	<CartPanel onClose={() => (showCart = false)} />
 {/if}
-
-<style>
-	.no-scrollbar::-webkit-scrollbar { display: none; }
-	.no-scrollbar { scrollbar-width: none; }
-</style>
