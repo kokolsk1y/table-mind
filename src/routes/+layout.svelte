@@ -38,7 +38,7 @@
 	<meta name="theme-color" content="#0e0e0e" />
 </svelte:head>
 
-<main class="min-h-screen bg-base-100 text-base-content">
+<main class="min-h-screen bg-base-100 text-base-content font-body">
 	{@render children()}
 </main>
 

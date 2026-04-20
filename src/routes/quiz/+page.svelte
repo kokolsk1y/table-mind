@@ -1,14 +1,18 @@
 <script>
 	import { onMount } from "svelte";
 	import { base } from "$app/paths";
+	import { session } from "$lib/stores/session.svelte.js";
 	import { loadCatalog } from "$lib/data/catalog.js";
 	import { formatCatalogForAI } from "$lib/ai/prompt.js";
 	import { streamChat } from "$lib/ai/client.js";
 
+	/** @type {any[]} */
 	let allItems = $state([]);
 	let step = $state(0);
+	/** @type {Record<string, string>} */
 	let answers = $state({});
 	let loading = $state(false);
+	/** @type {string | null} */
 	let results = $state(null);
 	let resultText = $state("");
 
@@ -17,50 +21,51 @@
 			key: "mood",
 			text: "На что вы настроены?",
 			options: [
-				{ label: "Лёгкий перекус", icon: "🥗", value: "лёгкое" },
-				{ label: "Плотный ужин", icon: "🥩", value: "сытное" },
-				{ label: "Что-то особенное", icon: "✨", value: "необычное" }
+				{ label: "Лёгкий перекус", value: "лёгкое" },
+				{ label: "Плотный ужин", value: "сытное" },
+				{ label: "Что-то особенное", value: "необычное" }
 			]
 		},
 		{
 			key: "restriction",
 			text: "Есть ограничения?",
 			options: [
-				{ label: "Нет ограничений", icon: "👍", value: "нет" },
-				{ label: "Без мяса", icon: "🌱", value: "без мяса" },
-				{ label: "Без глютена", icon: "🌾", value: "без глютена" },
-				{ label: "Без молочного", icon: "🥛", value: "без молочного" }
+				{ label: "Нет ограничений", value: "нет" },
+				{ label: "Без мяса", value: "без мяса" },
+				{ label: "Без глютена", value: "без глютена" },
+				{ label: "Без молочного", value: "без молочного" }
 			]
 		},
 		{
 			key: "spicy",
 			text: "Острое?",
 			options: [
-				{ label: "Люблю", icon: "🌶", value: "люблю" },
-				{ label: "Нейтрально", icon: "👌", value: "нейтрально" },
-				{ label: "Не ем", icon: "🚫", value: "не ем" }
+				{ label: "Люблю", value: "люблю" },
+				{ label: "Нейтрально", value: "нейтрально" },
+				{ label: "Не ем", value: "не ем" }
 			]
 		},
 		{
 			key: "portion",
 			text: "Формат?",
 			options: [
-				{ label: "Одно блюдо", icon: "🍽", value: "одно блюдо" },
-				{ label: "Полный сет", icon: "🎯", value: "полный сет" },
-				{ label: "Закуски на компанию", icon: "🫂", value: "закуски" }
+				{ label: "Одно блюдо", value: "одно блюдо" },
+				{ label: "Полный сет", value: "полный сет" },
+				{ label: "Закуски на компанию", value: "закуски" }
 			]
 		},
 		{
 			key: "drink",
 			text: "Напиток?",
 			options: [
-				{ label: "Алкоголь", icon: "🍷", value: "алкоголь" },
-				{ label: "Безалкогольное", icon: "🧃", value: "безалкогольное" },
-				{ label: "На ваш выбор", icon: "🤷", value: "на выбор AI" }
+				{ label: "Алкоголь", value: "алкоголь" },
+				{ label: "Безалкогольное", value: "безалкогольное" },
+				{ label: "На ваш выбор", value: "на выбор AI" }
 			]
 		}
 	];
 
+	/** @param {string} key; @param {string} value */
 	function selectAnswer(key, value) {
 		answers = { ...answers, [key]: value };
 		if (step < questions.length - 1) {
@@ -74,18 +79,20 @@
 		loading = true;
 		resultText = "";
 
-		const prefs = Object.entries(answers).map(([k, v]) => `${k}: ${v}`).join(", ");
+		const prefs = Object.entries(answers)
+			.map(([k, v]) => `${k}: ${v}`)
+			.join(", ");
 		const catalog = formatCatalogForAI(allItems);
 
 		const message = `Гость прошёл тест. Предпочтения: ${prefs}.
-Составь 3 комплекса. Каждому дай короткое яркое название с эмодзи.
+Составь 3 комплекса. Каждому дай короткое яркое название.
 Используй ТОЛЬКО блюда из каталога.
 
 ВАЖНО: пиши ТОЛЬКО простым текстом. Без маркдауна, без звёздочек, без решёток, без ---. Просто текст.
 
 Формат ответа (строго):
 
-🌶 Острый балтийский вечер
+Острый балтийский вечер
 
 Креветки в чесночном масле — 750₽
 Том-ям с морепродуктами — 690₽
@@ -122,76 +129,118 @@
 		resultText = "";
 	}
 
+	const today = new Date();
+	const monthsRoman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+	const dateStr = `${String(today.getDate()).padStart(2, "0")} · ${monthsRoman[today.getMonth()]} · ${String(today.getFullYear()).slice(-2)}`;
+
+	const stepRoman = $derived(["I", "II", "III", "IV", "V"][step] ?? String(step + 1));
+
 	onMount(async () => {
 		allItems = await loadCatalog();
 	});
 </script>
 
-<div class="flex flex-col min-h-screen max-w-md mx-auto">
+<div class="flex flex-col min-h-screen">
+	<!-- Masthead -->
+	<div class="px-5 pt-3 pb-2 border-b border-base-content/20 flex items-center justify-between masthead shrink-0">
+		<span>Карта — №003</span>
+		<span>{dateStr}</span>
+		<span>Стол · {session.tableNumber ?? "07"}</span>
+	</div>
+
 	<!-- Header -->
-	<div class="flex items-center gap-3 p-4 border-b border-base-300">
-		<a href="{base}/" class="text-base-content/50 text-sm">← Меню</a>
-		<h1 class="font-semibold flex-1 text-center">Подбор ужина</h1>
-		<div class="w-12"></div>
+	<div class="flex items-center justify-between px-5 py-3 border-b border-base-content/20 shrink-0">
+		<a href="{base}/" class="masthead text-base-content flex items-center gap-2">
+			<span class="text-base text-base-content leading-none">×</span>
+			<span>К меню</span>
+		</a>
+		<div class="text-center">
+			<div class="font-display italic text-lg text-base-content leading-none">Подбор</div>
+			<div class="masthead mt-1 text-[8.5px]">собираем комплекс</div>
+		</div>
+		<div class="w-14"></div>
 	</div>
 
 	{#if results || loading}
 		<!-- Results -->
-		<div class="flex-1 p-5 overflow-y-auto">
-			<h2 class="text-lg font-semibold text-primary mb-4">Ваши комплексы</h2>
-			<div class="bg-base-200 rounded-2xl p-5">
+		<div class="flex-1 px-5 py-6 overflow-y-auto">
+			<div class="eyebrow mb-3">№ → комплексы</div>
+			<h2 class="font-display italic text-3xl font-medium text-base-content mb-5">
+				Ваши комплексы
+			</h2>
+			<div class="border-t border-base-content/40 border-b py-5">
 				{#if resultText}
-					<p class="whitespace-pre-wrap text-sm leading-relaxed">{resultText}</p>
+					<pre class="whitespace-pre-wrap text-sm text-base-content leading-relaxed font-body">{resultText}</pre>
 				{:else}
 					<div class="flex items-center gap-3 py-8 justify-center">
 						<span class="loading loading-dots loading-md text-primary"></span>
-						<span class="text-base-content/40">Подбираю...</span>
+						<span class="masthead">подбираю…</span>
 					</div>
 				{/if}
 			</div>
 			{#if !loading}
-				<div class="flex gap-3 mt-5">
-					<button class="btn btn-sm btn-ghost flex-1" onclick={restart}>Заново</button>
-					<a href="{base}/" class="btn btn-sm btn-primary flex-1">К меню</a>
+				<div class="flex gap-3 mt-6">
+					<button
+						class="flex-1 border border-base-content py-3 font-body font-medium text-sm text-base-content active:bg-base-200"
+						onclick={restart}
+					>
+						Заново
+					</button>
+					<a
+						href="{base}/"
+						class="flex-1 bg-primary text-primary-content py-3 font-body font-semibold text-sm flex items-center justify-center"
+					>
+						К меню →
+					</a>
 				</div>
 			{/if}
 		</div>
 	{:else}
 		<!-- Quiz -->
-		<div class="flex-1 flex flex-col p-5">
+		<div class="flex-1 flex flex-col px-5 py-6 max-w-md mx-auto w-full">
 			<!-- Progress dots -->
-			<div class="flex gap-2 justify-center mb-8">
-				{#each questions as _, i}
-					<div class="w-2.5 h-2.5 rounded-full transition-colors {i < step ? 'bg-primary' : i === step ? 'bg-primary scale-125' : 'bg-base-300'}"></div>
+			<div class="flex gap-1.5 justify-center mb-10">
+				{#each questions as _q, i (i)}
+					<div
+						class="w-6 h-[3px] transition-colors {i < step ? 'bg-primary' : i === step ? 'bg-accent' : 'bg-base-content/20'}"
+					></div>
 				{/each}
 			</div>
 
 			<!-- Question -->
-			<div class="text-center mb-8">
-				<h2 class="text-2xl font-bold">{questions[step].text}</h2>
+			<div class="mb-8">
+				<div class="eyebrow mb-3">№ {stepRoman} · вопрос</div>
+				<h2 class="font-display italic text-3xl font-medium text-base-content leading-tight">
+					{questions[step].text}
+				</h2>
 			</div>
 
 			<!-- Options -->
-			<div class="flex flex-col gap-3 flex-1 justify-center">
-				{#each questions[step].options as opt}
+			<div class="flex flex-col flex-1">
+				{#each questions[step].options as opt, oi (opt.value)}
 					<button
-						class="flex items-center gap-4 p-4 bg-base-200 rounded-2xl text-left hover:bg-base-300 transition-colors active:scale-[0.98]"
+						class="flex items-baseline gap-3 py-4 px-2 border-b border-dotted border-base-content/30 active:bg-base-200 transition-colors text-left"
 						onclick={() => selectAnswer(questions[step].key, opt.value)}
 					>
-						<span class="text-2xl">{opt.icon}</span>
-						<span class="font-medium">{opt.label}</span>
+						<span class="eyebrow tabular w-7">{String(oi + 1).padStart(2, "0")}</span>
+						<span class="flex-1 font-body font-semibold text-base text-base-content">
+							{opt.label}
+						</span>
+						<span class="font-mono tabular text-xs text-base-content">→</span>
 					</button>
 				{/each}
 			</div>
 
 			<!-- Step counter -->
-			<p class="text-center text-xs text-base-content/30 mt-6">{step + 1} / {questions.length}</p>
+			<p class="text-center masthead mt-6">
+				{step + 1} / {questions.length}
+			</p>
 		</div>
 	{/if}
 
-	<div class="p-3">
-		<p class="text-[10px] text-base-content/20 text-center">
-			Аллергены уточняйте у официанта
+	<div class="px-5 py-3 border-t border-base-content/15 safe-bottom">
+		<p class="masthead text-center text-[9px]">
+			Данные об аллергенах уточняйте у официанта
 		</p>
 	</div>
 </div>
