@@ -2,9 +2,10 @@
   {
     "id": 1,
     "text": "Создать MVP: PWA шаблон + Google Sheets + AI-виджет + Telegram-бот",
-    "status": "pending",
+    "status": "done",
     "approved": true,
-    "created": "2026-04-10 00:00"
+    "created": "2026-04-10 00:00",
+    "note": "Фазы 1-6 выполнены согласно git history (bento layout, квиз, мультиязык, аналитика)"
   },
   {
     "id": 2,
@@ -58,9 +59,10 @@
   {
     "id": 9,
     "text": "Лендинг tablemind (одностраничник с демо QR и ценами)",
-    "status": "pending",
-    "approved": false,
-    "created": "2026-04-10 00:00"
+    "status": "in-progress",
+    "approved": true,
+    "created": "2026-04-10 00:00",
+    "note": "Бренд-система и макет сайта готовы в docs/design/TableMind (1)/. Осталось имплементировать в SvelteKit. Решение: multi-page вместо одностраничника."
   },
   {
     "id": 10,
@@ -68,5 +70,53 @@
     "status": "pending",
     "approved": false,
     "created": "2026-04-10 00:00"
+  },
+  {
+    "id": 11,
+    "text": "Оформить самозанятость (Мой налог) — блокер для B2B-продаж ресторанам",
+    "status": "pending",
+    "approved": true,
+    "created": "2026-04-20 13:00",
+    "note": "Регистрация 15 мин, лимит 2.4М₽/год, налог 6% с юрлиц. Без этого — серая зона при чеке 9 900 ₽/мес."
+  },
+  {
+    "id": 12,
+    "text": "Бренд-система TableMind (концепция D — Menu Card) через Claude Design",
+    "status": "done",
+    "approved": true,
+    "created": "2026-04-20 13:10",
+    "note": "Готово: логотип, палитра, типографика, компоненты, сайт B2B, PWA 3 экрана × light/dark. Артефакты в docs/design/TableMind (1)/. Осталась русификация всех английских слов (финальный прогон)."
+  },
+  {
+    "id": 13,
+    "text": "Редизайн PWA под бренд-систему TableMind (концепция Menu Card) в SvelteKit",
+    "status": "pending",
+    "approved": true,
+    "created": "2026-04-20 13:30",
+    "note": "Применить tokens.jsx, logo.jsx, pwa.jsx к существующим страницам /menu, /chat, /waiter-call. Dark mode обязателен."
+  },
+  {
+    "id": 14,
+    "text": "Multi-page маркетинговый сайт для рестораторов (B2B)",
+    "status": "pending",
+    "approved": true,
+    "created": "2026-04-20 13:30",
+    "note": "Страницы: главная (/), Метод (/method), Карта цен (/tarif), Верификатор (/verifier), Связаться (/contact). Макет главной готов в site.jsx."
+  },
+  {
+    "id": 15,
+    "text": "Ограничить расход OpenRouter: rate-limit на фронте + лимиты в системных промптах",
+    "status": "pending",
+    "approved": true,
+    "created": "2026-04-20 13:30",
+    "note": "Бизнес-модель сменилась на подписку — токены теперь за мой счёт. Один клиент с 'злым' гостем может съесть месячный бюджет. Нужны: rate-limit на IP/сессию, max tokens в ответе, circuit breaker при превышении дневного лимита."
+  },
+  {
+    "id": 16,
+    "text": "Обновить ROADMAP.md и SALES.md под новую бизнес-модель (подписка 9 900₽/мес)",
+    "status": "pending",
+    "approved": false,
+    "created": "2026-04-20 13:30",
+    "note": "PROJECT.md уже обновлён. ROADMAP.md и SALES.md могли остаться со старой разовой моделью — проверить и синхронизировать."
   }
 ]

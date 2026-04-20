@@ -1,25 +1,30 @@
 <script>
 	import MenuCard from "./MenuCard.svelte";
 
-	let { message, dishes = [] } = $props();
+	let { message, dishes = [], index = 0 } = $props();
+	const isAI = $derived(message.role !== "user");
+	const labelNum = $derived(String(index + 1).padStart(2, "0"));
 </script>
 
-<div class="flex gap-3 {message.role === 'user' ? 'justify-end' : 'justify-start'}">
-	<div class="max-w-[85%] {message.role === 'user' ? 'bg-primary text-primary-content' : 'bg-base-200 text-base-content'} rounded-2xl px-4 py-3">
-		<p class="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
-
-		{#if message.warning}
-			<p class="text-xs text-warning mt-2">⚠️ {message.warning}</p>
-		{/if}
+<div class="mb-5">
+	<div class="eyebrow mb-1.5 {isAI ? 'text-primary' : ''}">
+		{isAI ? "AI · TM" : `ГОСТЬ · ${labelNum}`}
 	</div>
+	<div class="font-body text-base text-base-content leading-relaxed whitespace-pre-wrap">
+		{message.content}
+	</div>
+
+	{#if message.warning}
+		<div class="mt-2 pt-1.5 border-t border-dotted border-base-content/25 masthead text-error">
+			⚠ {message.warning}
+		</div>
+	{/if}
+
+	{#if dishes.length > 0}
+		<div class="mt-3 border-y border-base-content/40">
+			{#each dishes as dish, di (dish.id)}
+				<MenuCard item={dish} compact={true} index={di} />
+			{/each}
+		</div>
+	{/if}
 </div>
-
-{#if dishes.length > 0}
-	<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 ml-2">
-		{#each dishes as dish (dish.id)}
-			<div class="scale-90 origin-top-left">
-				<MenuCard item={dish} compact={true} />
-			</div>
-		{/each}
-	</div>
-{/if}
