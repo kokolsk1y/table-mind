@@ -17,9 +17,10 @@
   {
     "id": 3,
     "text": "Собрать контакты первых 10 заведений из LEADS_KALININGRAD.md (телефон, Instagram, WhatsApp)",
-    "status": "pending",
+    "status": "in-progress",
     "approved": true,
-    "created": "2026-04-10 00:00"
+    "created": "2026-04-10 00:00",
+    "note": "LEADS_CONTACTS.md — шаблон с 10 заведениями первой волны + 2ГИС ссылки. OUTREACH.md — скрипты первого касания (IG / email / телефон + ответы на возражения). Осталось: пользователь руками заполняет телефоны/Instagram из 2ГИС и начинает первую волну."
   },
   {
     "id": 4,
