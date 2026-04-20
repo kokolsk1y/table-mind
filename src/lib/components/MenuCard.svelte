@@ -25,11 +25,11 @@
 		<span class="eyebrow tabular w-7 shrink-0">{displayNum}</span>
 	{/if}
 	<div class="flex-1 min-w-0">
-		<div class="font-body font-semibold {compact ? 'text-sm' : hero ? 'text-[17px]' : 'text-[15px]'} text-base-content leading-snug">
+		<div class="font-body font-semibold {compact ? 'text-[15px]' : hero ? 'text-[19px]' : 'text-base'} text-base-content leading-snug">
 			{item.name}
 		</div>
 		{#if item.description}
-			<div class="font-display italic {compact ? 'text-[11px]' : 'text-xs'} text-base-content/60 mt-1 leading-snug line-clamp-2">
+			<div class="font-display italic {compact ? 'text-xs' : 'text-[13px]'} text-base-content/65 mt-1.5 leading-snug line-clamp-2">
 				{item.description}
 			</div>
 		{/if}
@@ -45,7 +45,7 @@
 			{/each}
 		</div>
 	</div>
-	<span class="font-mono tabular {compact ? 'text-xs' : 'text-[13px]'} text-base-content font-medium shrink-0 self-start pt-0.5">
+	<span class="font-mono tabular {compact ? 'text-[13px]' : 'text-[15px]'} text-base-content font-medium shrink-0 self-start pt-0.5">
 		{item.price}
 	</span>
 </div>

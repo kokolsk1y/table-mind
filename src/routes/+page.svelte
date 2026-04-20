@@ -67,7 +67,7 @@
 			<input
 				type="text"
 				placeholder="поиск по меню…"
-				class="w-full bg-transparent border-b border-base-content/30 py-2 text-sm font-body text-base-content placeholder:text-base-content/40 placeholder:font-display placeholder:italic focus:outline-none focus:border-base-content"
+				class="w-full bg-transparent border-b border-base-content/30 py-2 text-base font-body text-base-content placeholder:text-base-content/40 placeholder:font-display placeholder:italic focus:outline-none focus:border-base-content"
 				bind:value={searchQuery}
 			/>
 		</div>
@@ -82,15 +82,12 @@
 
 	<!-- Category tabs -->
 	{#if categories.length > 0 && !searchQuery.trim()}
-		<div class="flex overflow-x-auto px-5 pt-2 border-b border-base-content/20 no-scrollbar">
-			{#each categories as cat, ci (cat)}
+		<div class="flex overflow-x-auto px-5 pt-3 border-b border-base-content/20 no-scrollbar">
+			{#each categories as cat (cat)}
 				<button
-					class="py-3 mr-5 eyebrow whitespace-nowrap shrink-0 {activeCategory === cat ? 'text-base-content border-b-2 border-accent -mb-[1.5px]' : 'text-base-content/50'}"
+					class="pb-3 mr-6 font-body font-medium text-[13px] whitespace-nowrap shrink-0 transition-colors {activeCategory === cat ? 'text-base-content border-b-2 border-accent -mb-[1.5px]' : 'text-base-content/50 hover:text-base-content/80'}"
 					onclick={() => (activeCategory = cat)}
 				>
-					{#if ci < 4}
-						{["I", "II", "III", "IV"][ci]} ·
-					{/if}
 					{cat}
 				</button>
 			{/each}

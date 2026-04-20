@@ -223,7 +223,7 @@
 				<input
 					type="text"
 					placeholder="спросите или выберите…"
-					class="flex-1 bg-transparent border-b border-base-content/30 py-2 px-1 text-sm font-body text-base-content placeholder:text-base-content/50 placeholder:font-display placeholder:italic focus:outline-none focus:border-base-content"
+					class="flex-1 bg-transparent border-b border-base-content/30 py-2 px-1 text-base font-body text-base-content placeholder:text-base-content/50 placeholder:font-display placeholder:italic focus:outline-none focus:border-base-content"
 					bind:value={inputText}
 					onkeydown={handleKeydown}
 					disabled={loading}

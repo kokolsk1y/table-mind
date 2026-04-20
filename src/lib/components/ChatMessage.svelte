@@ -10,7 +10,7 @@
 	<div class="eyebrow mb-1.5 {isAI ? 'text-primary' : ''}">
 		{isAI ? "AI · TM" : `ГОСТЬ · ${labelNum}`}
 	</div>
-	<div class="font-body text-[15px] text-base-content leading-relaxed whitespace-pre-wrap">
+	<div class="font-body text-base text-base-content leading-relaxed whitespace-pre-wrap">
 		{message.content}
 	</div>
 

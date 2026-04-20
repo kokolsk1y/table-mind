@@ -86,7 +86,7 @@
 /* Typography system */
 @layer base {
 	html {
-		font-family: "DM Sans", system-ui, sans-serif;
+		font-family: "Inter Tight", system-ui, sans-serif;
 		-webkit-tap-highlight-color: transparent;
 		font-size: 16px;
 		line-height: 1.5;
@@ -95,10 +95,11 @@
 
 @layer utilities {
 	.font-display {
-		font-family: "Playfair Display", "Times New Roman", serif;
+		font-family: "Fraunces", "Times New Roman", serif;
+		font-optical-sizing: auto;
 	}
 	.font-body {
-		font-family: "DM Sans", system-ui, sans-serif;
+		font-family: "Inter Tight", system-ui, sans-serif;
 	}
 	.font-mono {
 		font-family: "JetBrains Mono", "Menlo", monospace;
@@ -107,8 +108,8 @@
 	/* Masthead strip — небольшой моноширинный caps-текст с межбуквенным */
 	.masthead {
 		font-family: "JetBrains Mono", "Menlo", monospace;
-		font-size: 10px;
-		letter-spacing: 0.16em;
+		font-size: 11px;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--color-neutral);
 	}
@@ -116,8 +117,8 @@
 	/* Eyebrow — охряный акцентный caps-лейбл */
 	.eyebrow {
 		font-family: "JetBrains Mono", "Menlo", monospace;
-		font-size: 10px;
-		letter-spacing: 0.2em;
+		font-size: 11px;
+		letter-spacing: 0.18em;
 		text-transform: uppercase;
 		color: var(--color-accent);
 		font-weight: 500;
