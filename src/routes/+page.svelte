@@ -33,11 +33,7 @@
 			.filter((g) => g.items.length > 0);
 	});
 
-	const today = new Date();
-	const monthsRoman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
-	const dateStr = `${String(today.getDate()).padStart(2, "0")} · ${monthsRoman[today.getMonth()]} · ${String(today.getFullYear()).slice(-2)}`;
-
-	const slotRight = $derived(session.tableNumber ? `Стол · ${session.tableNumber}` : "Демо");
+	const slotRight = $derived(session.tableNumber ? `Стол ${session.tableNumber}` : "Демо");
 
 	onMount(async () => {
 		allItems = await loadCatalog();
@@ -46,35 +42,44 @@
 	});
 </script>
 
-<div class="pb-28 min-h-screen">
-	<!-- Masthead strip -->
-	<div class="px-5 pt-3 pb-2 border-b border-base-content/20 flex items-center justify-between masthead">
-		<span>Карта — №003</span>
-		<span>{dateStr}</span>
-		<span class={session.isDemoMode ? "text-accent" : ""}>{slotRight}</span>
-	</div>
-
-	<!-- Title -->
-	<div class="px-5 pt-5 pb-4 border-b border-base-content/20">
-		<div class="flex items-center gap-2.5 eyebrow mb-3">
-			<span class="inline-block w-6 h-6 border border-base-content flex items-center justify-center">
-				<span class="font-display italic text-sm text-base-content leading-none">T</span>
+<div class="pb-32 min-h-screen">
+	<!-- Простая шапка — логотип + номер стола -->
+	<header class="flex items-center justify-between px-5 pt-5 pb-4 border-b border-base-content/20">
+		<div class="flex items-center gap-3">
+			<img
+				src="{base}/logo.png"
+				alt="TableMind"
+				class="w-11 h-11 object-contain"
+				style="mix-blend-mode: multiply;"
+				width="44"
+				height="44"
+			/>
+			<span class="font-display italic text-xl font-semibold text-base-content tracking-wide">
+				TableMind
 			</span>
-			<span class="text-base-content font-display italic text-base not-italic font-semibold tracking-wide">TableMind</span>
 		</div>
-		<h1 class="font-display italic text-4xl font-medium text-base-content leading-none">
+		<span class="font-mono tabular text-sm {session.isDemoMode ? 'text-accent' : 'text-base-content/70'}">
+			{slotRight}
+		</span>
+	</header>
+
+	<!-- Hero-заголовок меню -->
+	<div class="px-5 pt-8 pb-6 border-b border-base-content/20">
+		<h1 class="font-display italic font-medium text-base-content leading-[0.95]" style="font-size: clamp(44px, 12vw, 64px); letter-spacing: -0.02em;">
 			Карта дня
 		</h1>
-		<p class="text-xs text-base-content/60 mt-1.5">сегодняшнее предложение шефа</p>
+		<p class="font-display italic text-base text-base-content/65 mt-3">
+			Всё что есть сейчас на кухне
+		</p>
 	</div>
 
 	<!-- Search -->
 	{#if allItems.length > 0}
-		<div class="px-5 pt-3 pb-2 border-b border-base-content/20">
+		<div class="px-5 pt-4 pb-2 border-b border-base-content/20">
 			<input
 				type="text"
-				placeholder="поиск по меню…"
-				class="w-full bg-transparent border-b border-base-content/30 py-2 text-base font-body text-base-content placeholder:text-base-content/40 placeholder:font-display placeholder:italic focus:outline-none focus:border-base-content"
+				placeholder="Найти блюдо…"
+				class="w-full bg-transparent border-b border-base-content/30 py-2.5 text-base font-body text-base-content placeholder:text-base-content/45 focus:outline-none focus:border-base-content"
 				bind:value={searchQuery}
 			/>
 		</div>
@@ -82,30 +87,30 @@
 
 	<!-- Returning guest greeting -->
 	{#if guest.greeting}
-		<p class="px-5 pt-3 font-display italic text-sm text-base-content/60">
+		<p class="px-5 pt-4 font-display italic text-base text-base-content/70">
 			{guest.greeting}
 		</p>
 	{/if}
 
-	<!-- Dishes by category (inline, no tabs) -->
+	<!-- Dishes by category -->
 	<div class="px-5">
 		{#if allItems.length === 0}
-			<div class="py-20 flex flex-col items-center gap-3">
+			<div class="py-24 flex flex-col items-center gap-4">
 				<span class="loading loading-spinner loading-md text-primary"></span>
-				<p class="masthead">загружаем карту…</p>
+				<p class="font-display italic text-base text-base-content/65">загружаем меню…</p>
 			</div>
 		{:else if filteredItems.length === 0}
-			<p class="py-16 text-center font-display italic text-base-content/50">
+			<p class="py-20 text-center font-display italic text-lg text-base-content/55">
 				ничего не нашлось — попробуйте иначе
 			</p>
 		{:else}
 			{#each groups as group (group.category ?? "_search")}
 				{#if group.category}
-					<div class="flex items-baseline justify-between mt-8 mb-1 pb-2 border-b border-base-content">
-						<h2 class="font-display italic text-2xl font-medium text-base-content">
+					<div class="flex items-baseline justify-between mt-10 mb-2 pb-3 border-b border-base-content">
+						<h2 class="font-display italic text-[26px] font-medium text-base-content leading-tight">
 							{group.category}
 						</h2>
-						<span class="masthead tabular">
+						<span class="font-mono tabular text-xs text-base-content/55">
 							{String(group.items.length).padStart(2, "0")}
 						</span>
 					</div>
@@ -118,26 +123,33 @@
 	</div>
 </div>
 
-<!-- Bottom Ask bar (AI-официант) -->
-<nav class="fixed bottom-0 left-0 right-0 bg-base-200 border-t border-base-content/25 safe-bottom z-40">
-	<div class="px-5 py-3 border-b border-dotted border-base-content/20 masthead">
-		<span>№ → AI-официант</span>
-	</div>
-	<div class="flex items-center gap-2 px-5 py-3">
-		<a href="{base}/chat/" class="flex-1 font-display italic text-base text-base-content/70 py-1">
-			спросите шефа…
+<!-- Bottom Ask bar — человеческие кнопки -->
+<nav class="fixed bottom-0 left-0 right-0 bg-base-200 border-t border-base-content safe-bottom z-40">
+	<div class="flex items-stretch">
+		<a
+			href="{base}/chat/"
+			class="flex-1 flex flex-col items-start justify-center gap-0.5 px-5 py-3.5 border-r border-base-content/20"
+		>
+			<span class="font-mono text-[10px] tracking-[0.18em] text-accent uppercase">Спросите</span>
+			<span class="font-display italic text-base text-base-content/85 leading-tight">AI-официанта</span>
 		</a>
-		<a href="{base}/quiz/" class="px-3 py-2.5 border border-base-content/60 masthead text-base-content" aria-label="Подбор">
-			Подбор
+		<a
+			href="{base}/quiz/"
+			class="flex flex-col items-center justify-center gap-0.5 px-4 py-3.5 border-r border-base-content/20"
+			aria-label="Подбор"
+		>
+			<span class="font-mono text-[10px] tracking-[0.18em] text-accent uppercase">Подбор</span>
+			<span class="font-body text-sm text-base-content font-medium leading-tight">комплекс</span>
 		</a>
 		<button
-			class="relative px-3 py-2.5 bg-primary text-primary-content masthead"
+			class="relative flex flex-col items-center justify-center gap-0.5 px-5 py-3.5 bg-primary text-primary-content"
 			onclick={() => (showCart = true)}
 			aria-label="Выбор"
 		>
-			Выбор
+			<span class="font-mono text-[10px] tracking-[0.18em] opacity-75 uppercase">Выбор</span>
+			<span class="font-body text-sm font-semibold leading-tight">корзина</span>
 			{#if cart.count > 0}
-				<span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-accent text-accent-content text-[9px] font-bold flex items-center justify-center font-mono tabular">{cart.count}</span>
+				<span class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-accent text-accent-content text-[10px] font-bold flex items-center justify-center font-mono tabular rounded-full">{cart.count}</span>
 			{/if}
 		</button>
 	</div>
