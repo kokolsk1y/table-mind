@@ -55,8 +55,8 @@
 				role: "assistant",
 				content:
 					style === "guide"
-						? "Здравствуйте! Расскажите, что вы сегодня хотите — лёгкое, сытное, что-то новое? Подберу под настроение."
-						: "Здравствуйте! Я AI-официант TableMind. Знаю меню наизусть — спрашивайте."
+						? "Меня зовут Тим. Расскажите, что вы сегодня хотите — лёгкое, сытное, что-то новое? Подберу под настроение."
+						: "Меня зовут Тим, я AI-официант TableMind. Знаю меню наизусть — спрашивайте."
 			}
 		];
 	}
@@ -160,8 +160,8 @@
 			<span>К меню</span>
 		</a>
 		<div class="text-center">
-			<div class="font-display italic text-lg text-base-content leading-none">AI · TM</div>
-			<div class="masthead mt-1 text-[8.5px]">собеседник</div>
+			<div class="font-display italic text-xl text-base-content leading-none">Тим</div>
+			<div class="font-mono text-[10px] tracking-[0.18em] text-base-content/55 uppercase mt-1.5">AI-официант</div>
 		</div>
 		<div class="w-7 h-7 border border-base-content flex items-center justify-center" aria-label="Голос">
 			<svg width="11" height="11" viewBox="0 0 14 14"><rect x="5" y="1" width="4" height="8" rx="2" fill="currentColor"/><path d="M2 7v1a5 5 0 0 0 10 0V7" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
@@ -204,7 +204,7 @@
 
 			{#if loading}
 				<div class="mb-5">
-					<div class="eyebrow text-primary mb-1.5">AI · TM</div>
+					<div class="eyebrow text-primary mb-1.5">Тим</div>
 					<span class="loading loading-dots loading-sm text-primary"></span>
 				</div>
 			{/if}

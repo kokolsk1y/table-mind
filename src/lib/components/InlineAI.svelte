@@ -94,16 +94,16 @@
 
 			<!-- AI response -->
 			<div class="mt-5 pt-4 border-t border-dotted border-base-content/30">
-				<div class="eyebrow mb-2">AI · расскажет</div>
+				<div class="eyebrow mb-2">Тим · расскажет</div>
 				{#if error}
-					<p class="text-error text-sm">{error}</p>
+					<p class="text-base text-error">{error}</p>
 				{:else if text}
-					<p class="text-sm text-base-content/80 leading-relaxed whitespace-pre-wrap">
+					<p class="text-[15px] text-base-content/85 leading-relaxed whitespace-pre-wrap">
 						{text}
 					</p>
 				{:else}
-					<p class="text-sm text-base-content/40 italic font-display">
-						AI-официант думает…
+					<p class="text-[15px] text-base-content/50 italic font-display">
+						Тим думает…
 					</p>
 				{/if}
 			</div>

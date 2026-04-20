@@ -8,7 +8,7 @@
 
 <div class="mb-5">
 	<div class="eyebrow mb-1.5 {isAI ? 'text-primary' : ''}">
-		{isAI ? "AI · TM" : `ГОСТЬ · ${labelNum}`}
+		{isAI ? "Тим" : `ГОСТЬ · ${labelNum}`}
 	</div>
 	<div class="font-body text-base text-base-content leading-relaxed whitespace-pre-wrap">
 		{message.content}
