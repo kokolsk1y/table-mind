@@ -112,6 +112,11 @@ const MAX_HISTORY = 20;
 const MAX_HISTORY_ENTRY = 1000;
 const MAX_TABLE = 10;
 const MAX_ITEMS_TEXT = 2000;
+const MAX_RESTAURANT_NAME = 200;
+const MAX_CONTACT = 200;
+const MAX_EMAIL = 200;
+const MAX_MENU_INFO = 2000;
+const MAX_SOURCE = 100;
 
 export function validateChatInput({ message, catalog, history }) {
 	if (typeof message !== "string" || message.trim().length === 0) {
@@ -155,6 +160,31 @@ export function validateNotifyInput({ table, items }) {
 	}
 	if (items.length > MAX_ITEMS_TEXT) {
 		return `items too long (max ${MAX_ITEMS_TEXT})`;
+	}
+	return null;
+}
+
+export function validateLeadInput({ restaurantName, contact, email, menuInfo, source }) {
+	if (typeof restaurantName !== "string" || restaurantName.trim().length === 0) {
+		return "restaurantName required";
+	}
+	if (restaurantName.length > MAX_RESTAURANT_NAME) {
+		return `restaurantName too long (max ${MAX_RESTAURANT_NAME})`;
+	}
+	if (typeof contact !== "string" || contact.trim().length === 0) {
+		return "contact required";
+	}
+	if (contact.length > MAX_CONTACT) {
+		return `contact too long (max ${MAX_CONTACT})`;
+	}
+	if (email != null && (typeof email !== "string" || email.length > MAX_EMAIL)) {
+		return "email invalid";
+	}
+	if (menuInfo != null && (typeof menuInfo !== "string" || menuInfo.length > MAX_MENU_INFO)) {
+		return `menuInfo too long (max ${MAX_MENU_INFO})`;
+	}
+	if (source != null && (typeof source !== "string" || source.length > MAX_SOURCE)) {
+		return "source invalid";
 	}
 	return null;
 }

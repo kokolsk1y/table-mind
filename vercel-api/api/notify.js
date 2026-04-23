@@ -1,4 +1,4 @@
-import { limitNotify, validateNotifyInput, rateLimitResponse } from "../lib/ratelimit.js";
+import { limitNotify, validateNotifyInput, validateLeadInput, rateLimitResponse } from "../lib/ratelimit.js";
 
 export const config = {
 	maxDuration: 10
@@ -12,6 +12,13 @@ const CORS_HEADERS = {
 
 function setCors(res) {
 	for (const [k, v] of Object.entries(CORS_HEADERS)) res.setHeader(k, v);
+}
+
+function escapeHtml(s) {
+	return String(s ?? "")
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;");
 }
 
 export default async function handler(req, res) {
@@ -35,23 +42,42 @@ export default async function handler(req, res) {
 		return;
 	}
 
-	const { table, items, total } = req.body || {};
+	const body = req.body || {};
+	const isLead = typeof body.restaurantName === "string" && body.restaurantName.length > 0;
 
-	// Валидация входа
-	const validError = validateNotifyInput({ table, items });
+	// Валидация
+	const validError = isLead
+		? validateLeadInput(body)
+		: validateNotifyInput(body);
 	if (validError) {
 		res.status(400).json({ error: validError });
 		return;
 	}
 
-	// Rate limit по IP — защита от спама в Telegram
+	// Rate limit по IP
 	const rl = await limitNotify(req);
 	if (!rl.ok) {
 		rateLimitResponse(res, rl);
 		return;
 	}
 
-	const text = `🍽 Стол №${table}\n\n${items}\n\nИтого: ${Number(total).toLocaleString("ru-RU")} ₽\n\nГость ждёт официанта`;
+	let text;
+	if (isLead) {
+		const { restaurantName, contact, email, menuInfo, source } = body;
+		const lines = [
+			"🆕 <b>НОВАЯ ЗАЯВКА НА ПИЛОТ</b>",
+			"",
+			`<b>Ресторан:</b> ${escapeHtml(restaurantName)}`,
+			`<b>Контакт:</b> ${escapeHtml(contact)}`
+		];
+		if (email) lines.push(`<b>Email:</b> ${escapeHtml(email)}`);
+		if (menuInfo) lines.push("", `<b>Про меню:</b>`, escapeHtml(menuInfo));
+		lines.push("", `<i>Источник: ${escapeHtml(source || "сайт tablemind-site")}</i>`);
+		text = lines.join("\n");
+	} else {
+		const { table, items, total } = body;
+		text = `🍽 Стол №${escapeHtml(table)}\n\n${escapeHtml(items)}\n\nИтого: ${Number(total).toLocaleString("ru-RU")} ₽\n\nГость ждёт официанта`;
+	}
 
 	try {
 		const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -60,7 +86,8 @@ export default async function handler(req, res) {
 			body: JSON.stringify({
 				chat_id: chatId,
 				text,
-				parse_mode: "HTML"
+				parse_mode: "HTML",
+				disable_web_page_preview: true
 			})
 		});
 
@@ -70,7 +97,7 @@ export default async function handler(req, res) {
 			return;
 		}
 
-		res.status(200).json({ ok: true });
+		res.status(200).json({ ok: true, kind: isLead ? "lead" : "waiter-call" });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
