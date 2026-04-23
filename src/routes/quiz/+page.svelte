@@ -155,62 +155,62 @@
 			<span>К меню</span>
 		</a>
 		<div class="text-center">
-			<div class="font-display italic text-lg text-base-content leading-none">Подбор</div>
-			<div class="masthead mt-1 text-[8.5px]">собираем комплекс</div>
+			<div class="font-display italic text-xl text-base-content leading-none">Подбор</div>
+			<div class="font-mono text-[10px] tracking-[0.18em] text-base-content/55 uppercase mt-1.5">собираем комплекс</div>
 		</div>
 		<div class="w-14"></div>
 	</div>
 
 	{#if results || loading}
 		<!-- Results -->
-		<div class="flex-1 px-5 py-6 overflow-y-auto">
-			<div class="eyebrow mb-3">№ → комплексы</div>
-			<h2 class="font-display italic text-3xl font-medium text-base-content mb-5">
+		<div class="flex-1 px-5 py-7 overflow-y-auto">
+			<div class="font-mono text-[11px] tracking-[0.18em] text-accent uppercase mb-4">Тим подобрал комплексы</div>
+			<h2 class="font-display italic text-[32px] font-medium text-base-content mb-6 leading-tight">
 				Ваши комплексы
 			</h2>
-			<div class="border-t border-base-content/40 border-b py-5">
+			<div class="border-t border-base-content/40 border-b py-6">
 				{#if resultText}
-					<pre class="whitespace-pre-wrap text-sm text-base-content leading-relaxed font-body">{resultText}</pre>
+					<pre class="whitespace-pre-wrap text-base text-base-content leading-relaxed font-body">{resultText}</pre>
 				{:else}
-					<div class="flex items-center gap-3 py-8 justify-center">
+					<div class="flex items-center gap-3 py-10 justify-center">
 						<span class="loading loading-dots loading-md text-primary"></span>
-						<span class="masthead">подбираю…</span>
+						<span class="font-display italic text-base text-base-content/65">подбираю…</span>
 					</div>
 				{/if}
 			</div>
 			{#if !loading}
-				<div class="flex gap-3 mt-6">
+				<div class="flex gap-3 mt-7">
 					<button
-						class="flex-1 border border-base-content py-3 font-body font-medium text-sm text-base-content active:bg-base-200"
+						class="flex-1 border-[1.5px] border-base-content py-4 font-body font-medium text-base text-base-content active:bg-base-200"
 						onclick={restart}
 					>
 						Заново
 					</button>
 					<a
 						href="{base}/"
-						class="flex-1 bg-primary text-primary-content py-3 font-body font-semibold text-sm flex items-center justify-center"
+						class="flex-1 bg-primary text-primary-content py-4 font-body font-semibold text-base flex items-center justify-center"
 					>
-						К меню →
+						К меню
 					</a>
 				</div>
 			{/if}
 		</div>
 	{:else}
 		<!-- Quiz -->
-		<div class="flex-1 flex flex-col px-5 py-6 max-w-md mx-auto w-full">
+		<div class="flex-1 flex flex-col px-5 py-7 max-w-md mx-auto w-full">
 			<!-- Progress dots -->
-			<div class="flex gap-1.5 justify-center mb-10">
+			<div class="flex gap-1.5 justify-center mb-12">
 				{#each questions as _q, i (i)}
 					<div
-						class="w-6 h-[3px] transition-colors {i < step ? 'bg-primary' : i === step ? 'bg-accent' : 'bg-base-content/20'}"
+						class="w-7 h-[3px] transition-colors {i < step ? 'bg-primary' : i === step ? 'bg-accent' : 'bg-base-content/20'}"
 					></div>
 				{/each}
 			</div>
 
 			<!-- Question -->
-			<div class="mb-8">
-				<div class="eyebrow mb-3">№ {stepRoman} · вопрос</div>
-				<h2 class="font-display italic text-3xl font-medium text-base-content leading-tight">
+			<div class="mb-10">
+				<div class="font-mono text-[11px] tracking-[0.18em] text-accent uppercase mb-3">Вопрос {stepRoman}</div>
+				<h2 class="font-display italic text-[32px] font-medium text-base-content leading-[1.1]">
 					{questions[step].text}
 				</h2>
 			</div>
@@ -219,27 +219,27 @@
 			<div class="flex flex-col flex-1">
 				{#each questions[step].options as opt, oi (opt.value)}
 					<button
-						class="flex items-baseline gap-3 py-4 px-2 border-b border-dotted border-base-content/30 active:bg-base-200 transition-colors text-left"
+						class="flex items-baseline gap-3 py-5 px-2 border-b border-dotted border-base-content/30 active:bg-base-200 transition-colors text-left group"
 						onclick={() => selectAnswer(questions[step].key, opt.value)}
 					>
-						<span class="eyebrow tabular w-7">{String(oi + 1).padStart(2, "0")}</span>
-						<span class="flex-1 font-body font-semibold text-base text-base-content">
+						<span class="font-mono tabular text-xs text-accent tracking-[0.14em] w-7 shrink-0 pt-1">{String(oi + 1).padStart(2, "0")}</span>
+						<span class="flex-1 font-body font-semibold text-[17px] text-base-content leading-snug">
 							{opt.label}
 						</span>
-						<span class="font-mono tabular text-xs text-base-content">→</span>
+						<span class="font-mono tabular text-base text-accent shrink-0 group-active:translate-x-1 transition-transform">→</span>
 					</button>
 				{/each}
 			</div>
 
 			<!-- Step counter -->
-			<p class="text-center masthead mt-6">
-				{step + 1} / {questions.length}
+			<p class="text-center font-mono text-xs tracking-[0.16em] text-base-content/55 mt-7 uppercase">
+				{step + 1} из {questions.length}
 			</p>
 		</div>
 	{/if}
 
 	<div class="px-5 py-3 border-t border-base-content/15 safe-bottom">
-		<p class="masthead text-center text-[9px]">
+		<p class="font-display italic text-xs text-base-content/50 text-center">
 			Данные об аллергенах уточняйте у официанта
 		</p>
 	</div>
