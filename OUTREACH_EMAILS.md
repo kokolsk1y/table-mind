@@ -8,11 +8,10 @@
 
 ## Настройка отправителя
 
-### Вариант A — прямо сейчас (с Gmail)
-
-**From:** `ikokolsk1y@gmail.com`
+**From:** `hi@tablemind.ru` (через VK Workspace / mail.ru webmail)
 **Display Name:** `К. · TableMind`
-**Подпись (в настройках Gmail):**
+
+**Подпись** (прописать один раз в настройках ящика, вставляется автоматически):
 
 ```
 —
@@ -23,23 +22,7 @@ https://tablemind.ru
 Telegram: @tablemind_orders_bot
 ```
 
-### Вариант B — после настройки Yandex 360 (рекомендую)
-
-**From:** `hi@tablemind.ru`
-**Display Name:** `К. · TableMind`
-**Подпись:**
-
-```
-—
-К.
-TableMind · AI-официант для ресторанов
-
-https://tablemind.ru
-Telegram: @tablemind_orders_bot
-Почта: hi@tablemind.ru
-```
-
-Разница в восприятии 2x: email на своём домене читается как «команда», с Gmail — как «фрилансер». Но **для 2025 solo-founder-тренда Gmail тоже ок**, просто с хорошей подписью.
+Как прописать подпись в mail.ru: https://mail.ru → настройки (шестерёнка) → Имя отправителя и подпись → вставь текст выше → Сохранить.
 
 ---
 
