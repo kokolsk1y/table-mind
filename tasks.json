@@ -63,7 +63,7 @@
     "status": "done",
     "approved": true,
     "created": "2026-04-10 00:00",
-    "note": "Сайт готов и задеплоен на https://tablemind-site.vercel.app. Структура: hero, 6 цифр на тёмной секции, 4 главы (метод, архитектура c pinned horizontal scroll, главное обещание, тариф), секция связи с формой заявки. OG-image + Vercel Analytics подключены. Лид-форма шлёт заявку в Telegram-бот через /api/notify."
+    "note": "Сайт готов и задеплоен на https://tablemind.ru. Структура: hero, 6 цифр на тёмной секции, 4 главы (метод, архитектура c pinned horizontal scroll, главное обещание, тариф), секция связи с формой заявки. OG-image + Vercel Analytics подключены. Лид-форма шлёт заявку в Telegram-бот через /api/notify."
   },
   {
     "id": 10,
