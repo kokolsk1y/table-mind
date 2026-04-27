@@ -2,7 +2,10 @@
 	import { session } from "$lib/stores/session.svelte.js";
 	import { cart } from "$lib/stores/cart.svelte.js";
 
-	const API_BASE = "https://table-mind-seven.vercel.app";
+	// URL Yandex Cloud Function (notify). Подставляется при build из GitHub Secret.
+	const API_URL_NOTIFY =
+		import.meta.env.PUBLIC_API_URL_NOTIFY ||
+		"https://table-mind-seven.vercel.app/api/notify";
 
 	let sending = $state(false);
 	let sent = $state(false);
@@ -21,7 +24,7 @@
 		error = null;
 
 		try {
-			const res = await fetch(`${API_BASE}/api/notify`, {
+			const res = await fetch(API_URL_NOTIFY, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({

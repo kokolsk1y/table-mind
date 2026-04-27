@@ -4,7 +4,9 @@
 	import { session } from "$lib/stores/session.svelte.js";
 	import { cart } from "$lib/stores/cart.svelte.js";
 
-	const API_BASE = "https://table-mind-seven.vercel.app";
+	const API_URL_NOTIFY =
+		import.meta.env.PUBLIC_API_URL_NOTIFY ||
+		"https://table-mind-seven.vercel.app/api/notify";
 
 	/** @type {"sent" | "accepted" | "enroute"} */
 	let stage = $state("sent");
@@ -39,7 +41,7 @@
 		}
 		error = "";
 		try {
-			const res = await fetch(`${API_BASE}/api/notify`, {
+			const res = await fetch(API_URL_NOTIFY, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({

@@ -24,7 +24,12 @@ jobs:
           node-version: 20
           cache: "npm"
       - run: npm ci
-      - run: npm run build
+      # PUBLIC_API_URL_CHAT — URL Yandex CF tablemind-chat (AI-чат)
+      # PUBLIC_API_URL_NOTIFY — URL Yandex CF tablemind-pwa-notify (вызов официанта)
+      - env:
+          PUBLIC_API_URL_CHAT: ${{ secrets.PUBLIC_API_URL_CHAT }}
+          PUBLIC_API_URL_NOTIFY: ${{ secrets.PUBLIC_API_URL_NOTIFY }}
+        run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: "build"
