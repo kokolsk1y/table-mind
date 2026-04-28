@@ -34,7 +34,7 @@
 
 <svelte:head>
 	<title>TableMind — AI-официант</title>
-	<meta name="description" content="AI-помощник в ресторане. Меню, рекомендации, вызов официанта." />
+	<meta name="description" content="AI-помощник в ресторане. Меню на вашем языке, рекомендации, вызов официанта." />
 	<meta name="theme-color" content="#0e0e0e" />
 </svelte:head>
 
