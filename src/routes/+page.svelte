@@ -2,33 +2,41 @@
 	import { onMount } from "svelte";
 	import { base } from "$app/paths";
 	import { session } from "$lib/stores/session.svelte.js";
-	import { loadCatalog, getCategories } from "$lib/data/catalog.js";
+	import {
+		loadCatalog,
+		getCategories,
+		getCategoryName,
+		getItemsByCategory
+	} from "$lib/data/catalog.js";
 	import { createSearchEngine, searchItems } from "$lib/search/engine.js";
 	import MenuCard from "$lib/components/MenuCard.svelte";
 	import CartPanel from "$lib/components/CartPanel.svelte";
 	import { cart } from "$lib/stores/cart.svelte.js";
 	import { guest } from "$lib/stores/guest.svelte.js";
 
-	/** @type {any[]} */
-	let allItems = $state([]);
+	/** @type {any} */
+	let catalog = $state(null);
 	let searchQuery = $state("");
 	let showCart = $state(false);
+
+	const allItems = $derived(catalog?.items || []);
 
 	const filteredItems = $derived.by(() => {
 		if (searchQuery.trim()) return searchItems(searchQuery, allItems);
 		return allItems;
 	});
 
-	// Группируем по категориям — как в печатном меню, без вкладок
+	// Группируем по категориям. category.id для key, локализованное name для отображения.
 	const groups = $derived.by(() => {
 		if (searchQuery.trim()) {
-			return [{ category: null, items: filteredItems }];
+			return [{ id: "_search", name: null, items: filteredItems }];
 		}
-		const order = getCategories(filteredItems);
-		return order
+		if (!catalog) return [];
+		return getCategories(catalog)
 			.map((cat) => ({
-				category: cat,
-				items: filteredItems.filter((i) => i.category === cat)
+				id: cat.id,
+				name: getCategoryName(cat, session.currentLang),
+				items: getItemsByCategory(catalog, cat.id)
 			}))
 			.filter((g) => g.items.length > 0);
 	});
@@ -36,8 +44,11 @@
 	const slotRight = $derived(session.tableNumber ? `Стол ${session.tableNumber}` : "Демо");
 
 	onMount(async () => {
-		allItems = await loadCatalog();
-		createSearchEngine(allItems);
+		catalog = await loadCatalog();
+		if (catalog?.restaurant?.id) {
+			session.setRestaurant(catalog.restaurant.id);
+		}
+		createSearchEngine(catalog?.items || []);
 		cart.restore();
 	});
 </script>
@@ -104,11 +115,11 @@
 				ничего не нашлось — попробуйте иначе
 			</p>
 		{:else}
-			{#each groups as group (group.category ?? "_search")}
-				{#if group.category}
+			{#each groups as group (group.id)}
+				{#if group.name}
 					<div class="flex items-baseline justify-between mt-10 mb-2 pb-3 border-b border-base-content">
 						<h2 class="font-display italic text-[26px] font-medium text-base-content leading-tight">
-							{group.category}
+							{group.name}
 						</h2>
 						<span class="font-mono tabular text-xs text-base-content/55">
 							{String(group.items.length).padStart(2, "0")}

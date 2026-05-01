@@ -13,17 +13,23 @@ const TIMEOUT_MS = 30_000;
 const WORD_DELAY_MS = 20;
 
 /**
+ * @typedef {object} StreamChatOptions
+ * @property {string} agent — "waiter" | "manager" | "verifier"
+ * @property {string} style — "detailed" | "brief" | "guide"
+ * @property {string} message
+ * @property {Array<any>} history
+ * @property {string} catalog
+ * @property {string=} lang — двухбуквенный код языка ответа (ru/en/de/...). Передаётся
+ *   в backend для построения промпта на нужном языке. Если не задан — RU fallback.
+ * @property {string=} restaurantName — имя ресторана для подстановки в промпт.
+ * @property {(fullText: string) => void} onChunk
+ * @property {(fullText: string) => void} onDone
+ * @property {(err: string) => void} onError
+ */
+
+/**
  * Запросить ответ Тима. Эмулирует стриминг через постепенную выдачу слов.
- *
- * @param {object} opts
- * @param {string} opts.agent — "waiter" | "manager" | "verifier"
- * @param {string} opts.style — "detailed" | "brief" | "guide"
- * @param {string} opts.message
- * @param {Array} opts.history
- * @param {string} opts.catalog
- * @param {(fullText: string) => void} opts.onChunk
- * @param {(fullText: string) => void} opts.onDone
- * @param {(err: string) => void} opts.onError
+ * @param {StreamChatOptions} opts
  */
 export async function streamChat({
 	agent,
@@ -31,6 +37,8 @@ export async function streamChat({
 	message,
 	history,
 	catalog,
+	lang,
+	restaurantName,
 	onChunk,
 	onDone,
 	onError
@@ -45,7 +53,7 @@ export async function streamChat({
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			signal: controller.signal,
-			body: JSON.stringify({ agent, style, message, history, catalog })
+			body: JSON.stringify({ agent, style, message, history, catalog, lang, restaurantName })
 		});
 
 		clearTimeout(timeout);

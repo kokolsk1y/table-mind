@@ -1,6 +1,8 @@
 <script>
 	import { base } from "$app/paths";
 	import { cart } from "$lib/stores/cart.svelte.js";
+	import { session } from "$lib/stores/session.svelte.js";
+	import { getName } from "$lib/data/catalog.js";
 
 	let { onClose } = $props();
 </script>
@@ -58,7 +60,7 @@
 						<span class="font-mono tabular text-xs text-accent tracking-[0.14em] w-7 shrink-0 pt-0.5">{String(i + 1).padStart(2, "0")}</span>
 						<div class="flex-1 min-w-0">
 							<div class="font-body font-semibold text-[17px] text-base-content leading-snug">
-								{item.name}
+								{getName(item, session.currentLang)}
 							</div>
 							<div class="font-mono tabular text-[13px] text-base-content/65 mt-1.5">
 								{item.price.toLocaleString("ru-RU")} ₽ × {item.qty} = {(item.price * item.qty).toLocaleString("ru-RU")} ₽

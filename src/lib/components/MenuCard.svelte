@@ -1,5 +1,7 @@
 <script>
 	import InlineAI from "./InlineAI.svelte";
+	import { session } from "$lib/stores/session.svelte.js";
+	import { getName, getDescription } from "$lib/data/catalog.js";
 
 	let { item, compact = false, index = null, hero = false } = $props();
 	let showAI = $state(false);
@@ -11,6 +13,8 @@
 	const displayNum = $derived(
 		index != null ? String(index + 1).padStart(2, "0") : null
 	);
+	const itemName = $derived(getName(item, session.currentLang));
+	const itemDescription = $derived(getDescription(item, session.currentLang));
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -26,11 +30,11 @@
 	{/if}
 	<div class="flex-1 min-w-0">
 		<div class="font-body font-semibold {compact ? 'text-base' : hero ? 'text-xl' : 'text-[17px]'} text-base-content leading-snug">
-			{item.name}
+			{itemName}
 		</div>
-		{#if item.description}
+		{#if itemDescription}
 			<div class="font-display italic {compact ? 'text-[13px]' : 'text-[15px]'} text-base-content/70 mt-2 leading-snug line-clamp-2">
-				{item.description}
+				{itemDescription}
 			</div>
 		{/if}
 		<div class="flex gap-2 mt-3 flex-wrap">

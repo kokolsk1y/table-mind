@@ -11,8 +11,12 @@
 	import ChatMessage from "$lib/components/ChatMessage.svelte";
 	import VoiceInput from "$lib/components/VoiceInput.svelte";
 
+	/** @type {any} */
+	let catalog = $state(null);
 	/** @type {any[]} */
-	let allItems = $state([]);
+	let allItems = $derived(catalog?.items || []);
+	/** @type {string} */
+	let restaurantName = $derived(catalog?.restaurant?.name?.ru || "");
 	/** @type {any} */
 	let searchEngine = $state(null);
 	/** @type {any[]} */
@@ -73,7 +77,8 @@
 
 		const history = messages.map((m) => ({ role: m.role, content: m.content }));
 		const relevant = selectItemsForAI(text, history, searchEngine, allItems);
-		const catalog = formatCatalogForAI(relevant);
+		const lang = session.currentLang;
+		const catalogText = formatCatalogForAI(relevant, lang);
 
 		const aiIdx = messages.length;
 		messages = [...messages, { role: "assistant", content: "", dishes: [] }];
@@ -83,7 +88,9 @@
 			style: selectedStyle,
 			message: text,
 			history: history.slice(-20),
-			catalog,
+			catalog: catalogText,
+			lang,
+			restaurantName,
 			onChunk(fullText) {
 				messages[aiIdx] = { ...messages[aiIdx], content: fullText };
 				messages = [...messages];
@@ -97,7 +104,7 @@
 				saveHistory();
 				scrollToBottom();
 
-				verifyResponse({ response: fullText, catalog }).then((result) => {
+				verifyResponse({ response: fullText, catalog: catalogText }).then((result) => {
 					if (result.verdict === "warning") {
 						messages[aiIdx] = { ...messages[aiIdx], warning: result.note };
 						messages = [...messages];
@@ -129,8 +136,11 @@
 	const dateStr = `${String(today.getDate()).padStart(2, "0")} · ${monthsRoman[today.getMonth()]} · ${String(today.getFullYear()).slice(-2)}`;
 
 	onMount(async () => {
-		allItems = await loadCatalog();
-		searchEngine = createSearchEngine(allItems);
+		catalog = await loadCatalog();
+		if (catalog?.restaurant?.id) {
+			session.setRestaurant(catalog.restaurant.id);
+		}
+		searchEngine = createSearchEngine(catalog?.items || []);
 
 		const savedStyle = sessionStorage.getItem("chat-style");
 		if (savedStyle && STYLES[savedStyle]) {

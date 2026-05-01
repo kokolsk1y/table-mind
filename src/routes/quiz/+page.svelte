@@ -6,8 +6,12 @@
 	import { formatCatalogForAI } from "$lib/ai/prompt.js";
 	import { streamChat } from "$lib/ai/client.js";
 
+	/** @type {any} */
+	let catalog = $state(null);
 	/** @type {any[]} */
-	let allItems = $state([]);
+	let allItems = $derived(catalog?.items || []);
+	/** @type {string} */
+	let restaurantName = $derived(catalog?.restaurant?.name?.ru || "");
 	let step = $state(0);
 	/** @type {Record<string, string>} */
 	let answers = $state({});
@@ -82,7 +86,8 @@
 		const prefs = Object.entries(answers)
 			.map(([k, v]) => `${k}: ${v}`)
 			.join(", ");
-		const catalog = formatCatalogForAI(allItems);
+		const lang = session.currentLang;
+		const catalogText = formatCatalogForAI(allItems, lang);
 
 		const message = `Гость прошёл тест. Предпочтения: ${prefs}.
 Составь 3 комплекса. Каждому дай короткое яркое название.
@@ -106,7 +111,9 @@
 			style: "detailed",
 			message,
 			history: [],
-			catalog,
+			catalog: catalogText,
+			lang,
+			restaurantName,
 			onChunk(text) {
 				resultText = text;
 			},
@@ -136,7 +143,10 @@
 	const stepRoman = $derived(["I", "II", "III", "IV", "V"][step] ?? String(step + 1));
 
 	onMount(async () => {
-		allItems = await loadCatalog();
+		catalog = await loadCatalog();
+		if (catalog?.restaurant?.id) {
+			session.setRestaurant(catalog.restaurant.id);
+		}
 	});
 </script>
 

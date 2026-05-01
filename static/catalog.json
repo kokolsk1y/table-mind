@@ -1,613 +1,1194 @@
-[
-  {
-    "id": "stroganina-iz-paltusa",
-    "name": "Строганина из палтуса",
-    "category": "Холодные закуски",
-    "description": "Тонко нарезанный замороженный палтус с Балтики, подаётся с соевым соусом, васаби и маринованным имбирём. Нежнейшая текстура тает во рту. Идеальная закуска к крафтовому пиву.",
-    "price": 690,
-    "photo": "photos/stroganina-iz-paltusa.webp",
-    "tags": ["локальное", "хит", "без глютена"],
-    "allergens": ["рыба", "соя"],
-    "weight": "120 г",
-    "spicy": false,
-    "vegetarian": false
+{
+  "schema_version": 2,
+  "restaurant": {
+    "id": "yantarniy-bereg",
+    "name": {
+      "ru": "Янтарный берег",
+      "en": "Amber Coast"
+    },
+    "city": "Калининград",
+    "languages": [
+      "ru",
+      "en",
+      "de",
+      "pl",
+      "lt",
+      "fr",
+      "it",
+      "es",
+      "fi",
+      "sv",
+      "no",
+      "zh"
+    ]
   },
-  {
-    "id": "kopchyonyj-ugor",
-    "name": "Копчёный угорь с муссом из авокадо",
-    "category": "Холодные закуски",
-    "description": "Балтийский угорь горячего копчения на подушке из мусса авокадо с каперсами и микрозеленью. Копчение на ольховой щепе придаёт деликатный дымный вкус.",
-    "price": 790,
-    "photo": "photos/kopchyonyj-ugor.webp",
-    "tags": ["локальное", "авторское"],
-    "allergens": ["рыба"],
-    "weight": "150 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "tartar-iz-lososa",
-    "name": "Тартар из лосося",
-    "category": "Холодные закуски",
-    "description": "Свежий атлантический лосось, нарезанный кубиками, с кремом из авокадо, красным луком и кунжутом. Заправлен цитрусовым понзу. Подаётся с хрустящими чипсами из чёрного хлеба.",
-    "price": 650,
-    "photo": "photos/tartar-iz-lososa.webp",
-    "tags": ["хит"],
-    "allergens": ["рыба", "кунжут", "глютен"],
-    "weight": "160 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "bruschetta-s-tomatami",
-    "name": "Брускетта с томатами и базиликом",
-    "category": "Тёплые закуски",
-    "description": "Поджаренный чиабатта с томатами черри, чесноком, свежим базиликом и оливковым маслом extra virgin. Классика итальянской кухни в нашей интерпретации.",
-    "price": 390,
-    "photo": "photos/bruschetta-s-tomatami.webp",
-    "tags": ["вегетарианское"],
-    "allergens": ["глютен", "молоко"],
-    "weight": "180 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "krevetki-v-chesnochnom-masle",
-    "name": "Креветки в чесночном масле",
-    "category": "Тёплые закуски",
-    "description": "Тигровые креветки, обжаренные в оливковом масле с чесноком, чили и петрушкой. Подаются шкворчащими в керамической сковороде с хрустящим хлебом для макания.",
-    "price": 750,
-    "photo": "photos/krevetki-v-chesnochnom-masle.webp",
-    "tags": ["острое", "хит"],
-    "allergens": ["ракообразные", "глютен"],
-    "weight": "200 г",
-    "spicy": true,
-    "vegetarian": false
-  },
-  {
-    "id": "klopsy-kenigsbergskie",
-    "name": "Клопсы кёнигсбергские",
-    "category": "Тёплые закуски",
-    "description": "Традиционные кёнигсбергские тефтели из телятины в сливочном соусе с каперсами. Рецепт восстановлен по историческим книгам Восточной Пруссии. Подаются с картофельным пюре.",
-    "price": 590,
-    "photo": "photos/klopsy-kenigsbergskie.webp",
-    "tags": ["локальное", "авторское"],
-    "allergens": ["глютен", "молоко", "яйца"],
-    "weight": "250 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "cezar-s-kuricej",
-    "name": "Цезарь с курицей",
-    "category": "Салаты",
-    "description": "Классический салат Цезарь с обжаренным куриным филе, листьями романо, пармезаном, крутонами и фирменным соусом Цезарь. Проверенная классика, которая никогда не подводит.",
-    "price": 520,
-    "photo": "photos/cezar-s-kuricej.webp",
-    "tags": ["хит"],
-    "allergens": ["глютен", "молоко", "яйца"],
-    "weight": "280 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "salat-s-kozjim-syrom",
-    "name": "Салат с козьим сыром и грушей",
-    "category": "Салаты",
-    "description": "Микс листовых салатов с тёплым козьим сыром, карамелизированной грушей, грецкими орехами и медово-горчичной заправкой. Изысканное сочетание сладкого и солёного.",
-    "price": 580,
-    "photo": "photos/salat-s-kozjim-syrom.webp",
-    "tags": ["вегетарианское"],
-    "allergens": ["молоко", "орехи", "горчица"],
-    "weight": "250 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "salat-yantar",
-    "name": "Салат «Янтарный»",
-    "category": "Салаты",
-    "description": "Авторский салат с копчёной форелью, манго, авокадо и кедровыми орешками под цитрусовой заправкой. Фирменное блюдо нашего шеф-повара, вдохновлённое балтийским побережьем.",
-    "price": 650,
-    "photo": "photos/salat-yantar.webp",
-    "tags": ["авторское", "локальное", "без глютена"],
-    "allergens": ["рыба", "орехи"],
-    "weight": "270 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "uha-po-baltijski",
-    "name": "Уха по-балтийски",
-    "category": "Супы",
-    "description": "Наваристая уха из трёх видов балтийской рыбы — судак, окунь и лосось — с картофелем, морковью и укропом. Подаётся с расстегаем. Варится по рецепту калининградских рыбаков.",
-    "price": 490,
-    "photo": "photos/uha-po-baltijski.webp",
-    "tags": ["локальное", "хит"],
-    "allergens": ["рыба", "глютен"],
-    "weight": "350 мл",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "tom-yam",
-    "name": "Том-ям с морепродуктами",
-    "category": "Супы",
-    "description": "Классический тайский суп с креветками, мидиями и кальмарами в остром кокосовом бульоне с лемонграссом и листьями каффир-лайма. Подаётся с рисом жасмин.",
-    "price": 690,
-    "photo": "photos/tom-yam.webp",
-    "tags": ["острое", "хит"],
-    "allergens": ["ракообразные", "моллюски"],
-    "weight": "350 мл",
-    "spicy": true,
-    "vegetarian": false
-  },
-  {
-    "id": "krem-sup-iz-tykvy",
-    "name": "Крем-суп из тыквы",
-    "category": "Супы",
-    "description": "Бархатистый крем-суп из запечённой тыквы с имбирём, кокосовыми сливками и тыквенными семечками. Нежный, согревающий и полностью веганский.",
-    "price": 420,
-    "photo": "photos/krem-sup-iz-tykvy.webp",
-    "tags": ["веган", "без глютена", "сезонное"],
-    "allergens": [],
-    "weight": "300 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "baltijskaya-koryushka",
-    "name": "Балтийская корюшка",
-    "category": "Рыба и морепродукты",
-    "description": "Свежевыловленная балтийская корюшка в хрустящей панировке с домашним соусом тартар. Подаётся с дольками лимона и микрозеленью. Сезонное блюдо, особенно хорошо весной.",
-    "price": 590,
-    "photo": "photos/baltijskaya-koryushka.webp",
-    "tags": ["локальное", "сезонное"],
-    "allergens": ["рыба", "глютен", "яйца"],
-    "weight": "250 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "sudak-na-grile",
-    "name": "Судак на гриле",
-    "category": "Рыба и морепродукты",
-    "description": "Филе балтийского судака на углях с гарниром из запечённых овощей и соусом из белого вина. Мясо нежное и сочное, с лёгким ароматом дымка.",
-    "price": 890,
-    "photo": "photos/sudak-na-grile.webp",
-    "tags": ["локальное", "без глютена"],
-    "allergens": ["рыба"],
-    "weight": "300 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "losos-sous-vid",
-    "name": "Лосось су-вид",
-    "category": "Рыба и морепродукты",
-    "description": "Филе лосося, приготовленное по технологии су-вид при 52°C, с кремом из цветной капусты, каперсами и лимонным маслом. Идеальная текстура — нежная и тающая.",
-    "price": 1190,
-    "photo": "photos/losos-sous-vid.webp",
-    "tags": ["авторское", "без глютена"],
-    "allergens": ["рыба", "молоко"],
-    "weight": "280 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "morskoye-plato",
-    "name": "Морское плато",
-    "category": "Рыба и морепродукты",
-    "description": "Щедрая подача: креветки, мидии, кальмары, гребешки и балтийская рыба дня на ледяной подушке. Подаётся с тремя соусами — тартар, коктейльный и лимонный айоли. На двоих.",
-    "price": 2490,
-    "photo": "photos/morskoye-plato.webp",
-    "tags": ["хит", "локальное"],
-    "allergens": ["рыба", "ракообразные", "моллюски", "яйца", "горчица"],
-    "weight": "600 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "steak-ribaj",
-    "name": "Стейк рибай",
-    "category": "Стейки и мясо",
-    "description": "Мраморная говядина Black Angus, 300 г, прожарка по вашему выбору. Подаётся с жареным картофелем, соусом из зелёного перца и свежими овощами гриль.",
-    "price": 1690,
-    "photo": "photos/steak-ribaj.webp",
-    "tags": ["хит", "без глютена"],
-    "allergens": ["молоко"],
-    "weight": "300 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "file-minjon",
-    "name": "Филе-миньон",
-    "category": "Стейки и мясо",
-    "description": "Нежнейшая вырезка из мраморной говядины с трюфельным демигласом и пюре из сельдерея. Тает во рту. Подаётся с грибами шиитаке.",
-    "price": 1890,
-    "photo": "photos/file-minjon.webp",
-    "tags": ["авторское", "без глютена"],
-    "allergens": ["молоко", "сельдерей"],
-    "weight": "250 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "utka-konfee",
-    "name": "Утиная ножка конфи",
-    "category": "Стейки и мясо",
-    "description": "Утиная ножка, томлённая 12 часов в собственном жире, с кассуле из белой фасоли и карамелизированным луком. Хрустящая корочка и невероятно нежное мясо внутри.",
-    "price": 1290,
-    "photo": "photos/utka-konfee.webp",
-    "tags": ["авторское"],
-    "allergens": [],
-    "weight": "350 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "burger-yantarnyj",
-    "name": "Бургер «Янтарный»",
-    "category": "Стейки и мясо",
-    "description": "Фирменный бургер с котлетой из мраморной говядины, копчёным сыром, карамелизированным луком и соусом BBQ на бриошь-булке. Подаётся с картофелем фри и колслоу.",
-    "price": 790,
-    "photo": "photos/burger-yantarnyj.webp",
-    "tags": ["хит"],
-    "allergens": ["глютен", "молоко", "яйца"],
-    "weight": "350 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "pasta-carbonara",
-    "name": "Паста карбонара",
-    "category": "Паста и ризотто",
-    "description": "Спагетти аль денте с панчеттой, яичным соусом из желтков и пекорино романо. Классический римский рецепт без сливок — как положено.",
-    "price": 590,
-    "photo": "photos/pasta-carbonara.webp",
-    "tags": ["хит"],
-    "allergens": ["глютен", "молоко", "яйца"],
-    "weight": "300 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "risotto-s-moreproduktami",
-    "name": "Ризотто с морепродуктами",
-    "category": "Паста и ризотто",
-    "description": "Кремовое ризотто с креветками, мидиями, кальмарами и шафраном. Рис карнароли, пармезан, белое вино. Подаётся с обжаренными креветками на шпажке.",
-    "price": 890,
-    "photo": "photos/risotto-s-moreproduktami.webp",
-    "tags": ["авторское"],
-    "allergens": ["ракообразные", "моллюски", "молоко"],
-    "weight": "320 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "pasta-s-gribami",
-    "name": "Паста с белыми грибами",
-    "category": "Паста и ризотто",
-    "description": "Тальятелле с белыми грибами в сливочном соусе с тимьяном и пармезаном. Грибы — свежие или сушёные из калининградских лесов в зависимости от сезона.",
-    "price": 690,
-    "photo": "photos/pasta-s-gribami.webp",
-    "tags": ["вегетарианское", "сезонное", "локальное"],
-    "allergens": ["глютен", "молоко"],
-    "weight": "300 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "kartofelnoe-pyure",
-    "name": "Картофельное пюре",
-    "category": "Гарниры",
-    "description": "Воздушное пюре из отборного картофеля со сливочным маслом и мускатным орехом. Классический гарнир к мясу и рыбе.",
-    "price": 290,
-    "photo": "photos/kartofelnoe-pyure.webp",
-    "tags": ["вегетарианское", "без глютена"],
-    "allergens": ["молоко"],
-    "weight": "200 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "ovoschi-gril",
-    "name": "Овощи гриль",
-    "category": "Гарниры",
-    "description": "Баклажаны, кабачки, перец, томаты и красный лук на углях с розмарином и оливковым маслом. Веганский гарнир, подходит ко всему.",
-    "price": 350,
-    "photo": "photos/ovoschi-gril.webp",
-    "tags": ["веган", "без глютена"],
-    "allergens": [],
-    "weight": "200 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "kartofel-fri",
-    "name": "Картофель фри с трюфельным маслом",
-    "category": "Гарниры",
-    "description": "Хрустящий картофель фри с трюфельным маслом, пармезаном и свежей петрушкой. Непростой гарнир для тех, кто ценит детали.",
-    "price": 390,
-    "photo": "photos/kartofel-fri.webp",
-    "tags": ["вегетарианское"],
-    "allergens": ["молоко"],
-    "weight": "200 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "ris-zhashmin",
-    "name": "Рис жасмин",
-    "category": "Гарниры",
-    "description": "Рассыпчатый ароматный рис жасмин, приготовленный на пару. Идеальное дополнение к рыбе и азиатским блюдам.",
-    "price": 250,
-    "photo": "photos/ris-zhashmin.webp",
-    "tags": ["веган", "без глютена"],
-    "allergens": [],
-    "weight": "180 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "detskaya-pasta",
-    "name": "Детская паста с сыром",
-    "category": "Детское меню",
-    "description": "Пенне с нежным сливочным соусом и тёртым сыром. Без специй, мягкий вкус. Для маленьких гурманов от 3 лет.",
-    "price": 350,
-    "photo": "photos/detskaya-pasta.webp",
-    "tags": ["детское", "вегетарианское"],
-    "allergens": ["глютен", "молоко"],
-    "weight": "200 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "detskiye-nagetsy",
-    "name": "Куриные наггетсы с картофелем",
-    "category": "Детское меню",
-    "description": "Нежные куриные наггетсы в лёгкой панировке с картофелем фри и кетчупом. Курица — только филе, без добавок.",
-    "price": 390,
-    "photo": "photos/detskiye-nagetsy.webp",
-    "tags": ["детское"],
-    "allergens": ["глютен", "яйца"],
-    "weight": "220 г",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "detskij-sup",
-    "name": "Куриный суп с лапшой",
-    "category": "Детское меню",
-    "description": "Лёгкий куриный бульон с домашней лапшой, морковью и зеленью. Тёплый и питательный, подходит для малышей.",
-    "price": 320,
-    "photo": "photos/detskij-sup.webp",
-    "tags": ["детское"],
-    "allergens": ["глютен"],
-    "weight": "250 мл",
-    "spicy": false,
-    "vegetarian": false
-  },
-  {
-    "id": "tiramisu",
-    "name": "Тирамису",
-    "category": "Десерты",
-    "description": "Классический итальянский десерт из маскарпоне, савоярди и эспрессо с какао-пудрой. Готовим каждый день — только свежий.",
-    "price": 490,
-    "photo": "photos/tiramisu.webp",
-    "tags": ["хит"],
-    "allergens": ["молоко", "яйца", "глютен"],
-    "weight": "180 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "marcipanovyj-tort",
-    "name": "Марципановый торт «Кёнигсберг»",
-    "category": "Десерты",
-    "description": "Авторский торт из миндального марципана с шоколадным ганашем — дань кёнигсбергской кондитерской традиции. Подаётся с шариком ванильного мороженого.",
-    "price": 550,
-    "photo": "photos/marcipanovyj-tort.webp",
-    "tags": ["локальное", "авторское"],
-    "allergens": ["орехи", "молоко", "яйца", "глютен"],
-    "weight": "160 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "panna-kotta",
-    "name": "Панна-котта с ягодным соусом",
-    "category": "Десерты",
-    "description": "Нежнейшая итальянская панна-котта с соусом из свежих лесных ягод. Лёгкий десерт для идеального завершения ужина.",
-    "price": 420,
-    "photo": "photos/panna-kotta.webp",
-    "tags": ["без глютена"],
-    "allergens": ["молоко"],
-    "weight": "150 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "shokoladnyj-fondan",
-    "name": "Шоколадный фондан",
-    "category": "Десерты",
-    "description": "Тёплый шоколадный кекс с жидким центром из бельгийского шоколада 70%. Подаётся с шариком ванильного мороженого. Готовится 15 минут — стоит подождать.",
-    "price": 520,
-    "photo": "photos/shokoladnyj-fondan.webp",
-    "tags": ["хит"],
-    "allergens": ["молоко", "яйца", "глютен"],
-    "weight": "170 г",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "limonad-domashnyj",
-    "name": "Домашний лимонад",
-    "category": "Безалкогольные напитки",
-    "description": "Освежающий лимонад из свежих лимонов с мятой и тростниковым сахаром. Три вкуса: классический, имбирный, ягодный.",
-    "price": 350,
-    "photo": "photos/limonad-domashnyj.webp",
-    "tags": ["веган"],
-    "allergens": [],
-    "weight": "400 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "morsy-yagodnyj",
-    "name": "Морс ягодный",
-    "category": "Безалкогольные напитки",
-    "description": "Натуральный морс из клюквы, брусники и черной смородины. Без искусственных добавок, только ягоды и немного сахара. Подаётся со льдом.",
-    "price": 290,
-    "photo": "photos/morsy-yagodnyj.webp",
-    "tags": ["веган", "локальное"],
-    "allergens": [],
-    "weight": "400 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "espresso",
-    "name": "Эспрессо / Американо / Капучино",
-    "category": "Безалкогольные напитки",
-    "description": "Кофе на зёрнах specialty-класса из обжарщиков Калининграда. Эспрессо — 120₽, американо — 180₽, капучино — 250₽. Альтернативное молоко +50₽.",
-    "price": 250,
-    "photo": "photos/espresso.webp",
-    "tags": [],
-    "allergens": ["молоко"],
-    "weight": "200 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "chaj-kollekciya",
-    "name": "Чайная коллекция",
-    "category": "Безалкогольные напитки",
-    "description": "Чай в ассортименте: чёрный, зелёный, улун, травяной (ромашка, мята, иван-чай). Завариваем в чайнике на 2 чашки. Иван-чай — калининградская классика.",
-    "price": 320,
-    "photo": "photos/chaj-kollekciya.webp",
-    "tags": ["веган", "локальное"],
-    "allergens": [],
-    "weight": "400 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "kokteyl-yantar-spritz",
-    "name": "Янтарь Шприц",
-    "category": "Авторские коктейли",
-    "description": "Авторский аперитив на основе просекко, апероль и облепихового сиропа с веточкой розмарина. Яркий янтарный цвет — визитная карточка бара.",
-    "price": 590,
-    "photo": "photos/kokteyl-yantar-spritz.webp",
-    "tags": ["авторское", "хит"],
-    "allergens": [],
-    "weight": "250 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "kokteyl-baltijskij-briz",
-    "name": "Балтийский бриз",
-    "category": "Авторские коктейли",
-    "description": "Джин, тоник, огуречный сироп, базилик и лайм. Свежий и лёгкий, как ветер с Балтийского моря. Подаётся в бокале с большим кубиком льда.",
-    "price": 550,
-    "photo": "photos/kokteyl-baltijskij-briz.webp",
-    "tags": ["авторское"],
-    "allergens": [],
-    "weight": "300 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "kokteyl-vishnyovyj-sour",
-    "name": "Вишнёвый сауэр",
-    "category": "Авторские коктейли",
-    "description": "Бурбон, вишнёвый ликёр, лимонный сок, яичный белок. Бархатистая пена и глубокий вишнёвый вкус. Классический сауэр в авторской подаче.",
-    "price": 620,
-    "photo": "photos/kokteyl-vishnyovyj-sour.webp",
-    "tags": ["авторское"],
-    "allergens": ["яйца"],
-    "weight": "200 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "vino-beloe-sauvignon",
-    "name": "Совиньон Блан (бокал)",
-    "category": "Вино",
-    "description": "Новая Зеландия, Marlborough. Свежий, с нотами крыжовника, цитрусовых и свежескошенной травы. Идеален к рыбе и морепродуктам.",
-    "price": 490,
-    "photo": "photos/vino-beloe-sauvignon.webp",
-    "tags": [],
-    "allergens": [],
-    "weight": "150 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "vino-krasnoe-merlot",
-    "name": "Мерло (бокал)",
-    "category": "Вино",
-    "description": "Чили, Valle Central. Мягкий, с нотами спелой вишни, сливы и лёгкого дуба. Универсальный выбор к мясу и пасте.",
-    "price": 450,
-    "photo": "photos/vino-krasnoe-merlot.webp",
-    "tags": [],
-    "allergens": [],
-    "weight": "150 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "vino-prosecco",
-    "name": "Просекко (бокал)",
-    "category": "Вино",
-    "description": "Италия, Венето. Лёгкое игристое с нотами зелёного яблока и белых цветов. Отлично для аперитива или к лёгким закускам.",
-    "price": 420,
-    "photo": "photos/vino-prosecco.webp",
-    "tags": [],
-    "allergens": [],
-    "weight": "150 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "pivo-yantarnoe",
-    "name": "Янтарное (крафт, 0.5)",
-    "category": "Пиво и сидр",
-    "description": "Фирменный янтарный эль от калининградской пивоварни «Хмельной замок». Карамельный солод, хмель Cascade, лёгкая горчинка. 5.2% ABV.",
-    "price": 390,
-    "photo": "photos/pivo-yantarnoe.webp",
-    "tags": ["локальное", "хит"],
-    "allergens": ["глютен"],
-    "weight": "500 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "pivo-pshenichnoye",
-    "name": "Пшеничное нефильтрованное (0.5)",
-    "category": "Пиво и сидр",
-    "description": "Классический немецкий хефевайцен — мутное, ароматное, с нотами банана и гвоздики. Отсылка к кёнигсбергским пивным традициям.",
-    "price": 350,
-    "photo": "photos/pivo-pshenichnoye.webp",
-    "tags": ["локальное"],
-    "allergens": ["глютен"],
-    "weight": "500 мл",
-    "spicy": false,
-    "vegetarian": true
-  },
-  {
-    "id": "sidr-yablochnyj",
-    "name": "Яблочный сидр (0.33)",
-    "category": "Пиво и сидр",
-    "description": "Полусухой яблочный сидр от местного производителя. Натуральное брожение, без добавленного сахара. Свежий и лёгкий — 4.5% ABV.",
-    "price": 320,
-    "photo": "photos/sidr-yablochnyj.webp",
-    "tags": ["локальное", "без глютена"],
-    "allergens": [],
-    "weight": "330 мл",
-    "spicy": false,
-    "vegetarian": true
-  }
-]
+  "categories": [
+    {
+      "id": "holodnye-zakuski",
+      "order": 1,
+      "name": {
+        "ru": "Холодные закуски"
+      }
+    },
+    {
+      "id": "teplye-zakuski",
+      "order": 2,
+      "name": {
+        "ru": "Тёплые закуски"
+      }
+    },
+    {
+      "id": "salaty",
+      "order": 3,
+      "name": {
+        "ru": "Салаты"
+      }
+    },
+    {
+      "id": "supy",
+      "order": 4,
+      "name": {
+        "ru": "Супы"
+      }
+    },
+    {
+      "id": "ryba-i-moreprodukty",
+      "order": 5,
+      "name": {
+        "ru": "Рыба и морепродукты"
+      }
+    },
+    {
+      "id": "steyki-i-myaso",
+      "order": 6,
+      "name": {
+        "ru": "Стейки и мясо"
+      }
+    },
+    {
+      "id": "pasta-i-rizotto",
+      "order": 7,
+      "name": {
+        "ru": "Паста и ризотто"
+      }
+    },
+    {
+      "id": "garniry",
+      "order": 8,
+      "name": {
+        "ru": "Гарниры"
+      }
+    },
+    {
+      "id": "detskoe-menyu",
+      "order": 9,
+      "name": {
+        "ru": "Детское меню"
+      }
+    },
+    {
+      "id": "deserty",
+      "order": 10,
+      "name": {
+        "ru": "Десерты"
+      }
+    },
+    {
+      "id": "bezalkogolnye-napitki",
+      "order": 11,
+      "name": {
+        "ru": "Безалкогольные напитки"
+      }
+    },
+    {
+      "id": "avtorskie-kokteyli",
+      "order": 12,
+      "name": {
+        "ru": "Авторские коктейли"
+      }
+    },
+    {
+      "id": "vino",
+      "order": 13,
+      "name": {
+        "ru": "Вино"
+      }
+    },
+    {
+      "id": "pivo-i-sidr",
+      "order": 14,
+      "name": {
+        "ru": "Пиво и сидр"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "stroganina-iz-paltusa",
+      "category_id": "holodnye-zakuski",
+      "price": 690,
+      "weight": "120 г",
+      "photo": "photos/stroganina-iz-paltusa.webp",
+      "name": {
+        "ru": "Строганина из палтуса"
+      },
+      "description": {
+        "ru": "Тонко нарезанный замороженный палтус с Балтики, подаётся с соевым соусом, васаби и маринованным имбирём. Нежнейшая текстура тает во рту. Идеальная закуска к крафтовому пиву."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "соя"
+      ],
+      "tags": [
+        "локальное",
+        "хит",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "kopchyonyj-ugor",
+      "category_id": "holodnye-zakuski",
+      "price": 790,
+      "weight": "150 г",
+      "photo": "photos/kopchyonyj-ugor.webp",
+      "name": {
+        "ru": "Копчёный угорь с муссом из авокадо"
+      },
+      "description": {
+        "ru": "Балтийский угорь горячего копчения на подушке из мусса авокадо с каперсами и микрозеленью. Копчение на ольховой щепе придаёт деликатный дымный вкус."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба"
+      ],
+      "tags": [
+        "локальное",
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "tartar-iz-lososa",
+      "category_id": "holodnye-zakuski",
+      "price": 650,
+      "weight": "160 г",
+      "photo": "photos/tartar-iz-lososa.webp",
+      "name": {
+        "ru": "Тартар из лосося"
+      },
+      "description": {
+        "ru": "Свежий атлантический лосось, нарезанный кубиками, с кремом из авокадо, красным луком и кунжутом. Заправлен цитрусовым понзу. Подаётся с хрустящими чипсами из чёрного хлеба."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "кунжут",
+        "глютен"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "bruschetta-s-tomatami",
+      "category_id": "teplye-zakuski",
+      "price": 390,
+      "weight": "180 г",
+      "photo": "photos/bruschetta-s-tomatami.webp",
+      "name": {
+        "ru": "Брускетта с томатами и базиликом"
+      },
+      "description": {
+        "ru": "Поджаренный чиабатта с томатами черри, чесноком, свежим базиликом и оливковым маслом extra virgin. Классика итальянской кухни в нашей интерпретации."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко"
+      ],
+      "tags": [
+        "вегетарианское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "krevetki-v-chesnochnom-masle",
+      "category_id": "teplye-zakuski",
+      "price": 750,
+      "weight": "200 г",
+      "photo": "photos/krevetki-v-chesnochnom-masle.webp",
+      "name": {
+        "ru": "Креветки в чесночном масле"
+      },
+      "description": {
+        "ru": "Тигровые креветки, обжаренные в оливковом масле с чесноком, чили и петрушкой. Подаются шкворчащими в керамической сковороде с хрустящим хлебом для макания."
+      },
+      "ingredients": [],
+      "allergens": [
+        "ракообразные",
+        "глютен"
+      ],
+      "tags": [
+        "острое",
+        "хит"
+      ],
+      "spicy": true,
+      "vegetarian": false
+    },
+    {
+      "id": "klopsy-kenigsbergskie",
+      "category_id": "teplye-zakuski",
+      "price": 590,
+      "weight": "250 г",
+      "photo": "photos/klopsy-kenigsbergskie.webp",
+      "name": {
+        "ru": "Клопсы кёнигсбергские"
+      },
+      "description": {
+        "ru": "Традиционные кёнигсбергские тефтели из телятины в сливочном соусе с каперсами. Рецепт восстановлен по историческим книгам Восточной Пруссии. Подаются с картофельным пюре."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко",
+        "яйца"
+      ],
+      "tags": [
+        "локальное",
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "cezar-s-kuricej",
+      "category_id": "salaty",
+      "price": 520,
+      "weight": "280 г",
+      "photo": "photos/cezar-s-kuricej.webp",
+      "name": {
+        "ru": "Цезарь с курицей"
+      },
+      "description": {
+        "ru": "Классический салат Цезарь с обжаренным куриным филе, листьями романо, пармезаном, крутонами и фирменным соусом Цезарь. Проверенная классика, которая никогда не подводит."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко",
+        "яйца"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "salat-s-kozjim-syrom",
+      "category_id": "salaty",
+      "price": 580,
+      "weight": "250 г",
+      "photo": "photos/salat-s-kozjim-syrom.webp",
+      "name": {
+        "ru": "Салат с козьим сыром и грушей"
+      },
+      "description": {
+        "ru": "Микс листовых салатов с тёплым козьим сыром, карамелизированной грушей, грецкими орехами и медово-горчичной заправкой. Изысканное сочетание сладкого и солёного."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко",
+        "орехи",
+        "горчица"
+      ],
+      "tags": [
+        "вегетарианское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "salat-yantar",
+      "category_id": "salaty",
+      "price": 650,
+      "weight": "270 г",
+      "photo": "photos/salat-yantar.webp",
+      "name": {
+        "ru": "Салат «Янтарный»"
+      },
+      "description": {
+        "ru": "Авторский салат с копчёной форелью, манго, авокадо и кедровыми орешками под цитрусовой заправкой. Фирменное блюдо нашего шеф-повара, вдохновлённое балтийским побережьем."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "орехи"
+      ],
+      "tags": [
+        "авторское",
+        "локальное",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "uha-po-baltijski",
+      "category_id": "supy",
+      "price": 490,
+      "weight": "350 мл",
+      "photo": "photos/uha-po-baltijski.webp",
+      "name": {
+        "ru": "Уха по-балтийски"
+      },
+      "description": {
+        "ru": "Наваристая уха из трёх видов балтийской рыбы — судак, окунь и лосось — с картофелем, морковью и укропом. Подаётся с расстегаем. Варится по рецепту калининградских рыбаков."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "глютен"
+      ],
+      "tags": [
+        "локальное",
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "tom-yam",
+      "category_id": "supy",
+      "price": 690,
+      "weight": "350 мл",
+      "photo": "photos/tom-yam.webp",
+      "name": {
+        "ru": "Том-ям с морепродуктами"
+      },
+      "description": {
+        "ru": "Классический тайский суп с креветками, мидиями и кальмарами в остром кокосовом бульоне с лемонграссом и листьями каффир-лайма. Подаётся с рисом жасмин."
+      },
+      "ingredients": [],
+      "allergens": [
+        "ракообразные",
+        "моллюски"
+      ],
+      "tags": [
+        "острое",
+        "хит"
+      ],
+      "spicy": true,
+      "vegetarian": false
+    },
+    {
+      "id": "krem-sup-iz-tykvy",
+      "category_id": "supy",
+      "price": 420,
+      "weight": "300 мл",
+      "photo": "photos/krem-sup-iz-tykvy.webp",
+      "name": {
+        "ru": "Крем-суп из тыквы"
+      },
+      "description": {
+        "ru": "Бархатистый крем-суп из запечённой тыквы с имбирём, кокосовыми сливками и тыквенными семечками. Нежный, согревающий и полностью веганский."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган",
+        "без глютена",
+        "сезонное"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "baltijskaya-koryushka",
+      "category_id": "ryba-i-moreprodukty",
+      "price": 590,
+      "weight": "250 г",
+      "photo": "photos/baltijskaya-koryushka.webp",
+      "name": {
+        "ru": "Балтийская корюшка"
+      },
+      "description": {
+        "ru": "Свежевыловленная балтийская корюшка в хрустящей панировке с домашним соусом тартар. Подаётся с дольками лимона и микрозеленью. Сезонное блюдо, особенно хорошо весной."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "глютен",
+        "яйца"
+      ],
+      "tags": [
+        "локальное",
+        "сезонное"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "sudak-na-grile",
+      "category_id": "ryba-i-moreprodukty",
+      "price": 890,
+      "weight": "300 г",
+      "photo": "photos/sudak-na-grile.webp",
+      "name": {
+        "ru": "Судак на гриле"
+      },
+      "description": {
+        "ru": "Филе балтийского судака на углях с гарниром из запечённых овощей и соусом из белого вина. Мясо нежное и сочное, с лёгким ароматом дымка."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба"
+      ],
+      "tags": [
+        "локальное",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "losos-sous-vid",
+      "category_id": "ryba-i-moreprodukty",
+      "price": 1190,
+      "weight": "280 г",
+      "photo": "photos/losos-sous-vid.webp",
+      "name": {
+        "ru": "Лосось су-вид"
+      },
+      "description": {
+        "ru": "Филе лосося, приготовленное по технологии су-вид при 52°C, с кремом из цветной капусты, каперсами и лимонным маслом. Идеальная текстура — нежная и тающая."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "молоко"
+      ],
+      "tags": [
+        "авторское",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "morskoye-plato",
+      "category_id": "ryba-i-moreprodukty",
+      "price": 2490,
+      "weight": "600 г",
+      "photo": "photos/morskoye-plato.webp",
+      "name": {
+        "ru": "Морское плато"
+      },
+      "description": {
+        "ru": "Щедрая подача: креветки, мидии, кальмары, гребешки и балтийская рыба дня на ледяной подушке. Подаётся с тремя соусами — тартар, коктейльный и лимонный айоли. На двоих."
+      },
+      "ingredients": [],
+      "allergens": [
+        "рыба",
+        "ракообразные",
+        "моллюски",
+        "яйца",
+        "горчица"
+      ],
+      "tags": [
+        "хит",
+        "локальное"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "steak-ribaj",
+      "category_id": "steyki-i-myaso",
+      "price": 1690,
+      "weight": "300 г",
+      "photo": "photos/steak-ribaj.webp",
+      "name": {
+        "ru": "Стейк рибай"
+      },
+      "description": {
+        "ru": "Мраморная говядина Black Angus, 300 г, прожарка по вашему выбору. Подаётся с жареным картофелем, соусом из зелёного перца и свежими овощами гриль."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко"
+      ],
+      "tags": [
+        "хит",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "file-minjon",
+      "category_id": "steyki-i-myaso",
+      "price": 1890,
+      "weight": "250 г",
+      "photo": "photos/file-minjon.webp",
+      "name": {
+        "ru": "Филе-миньон"
+      },
+      "description": {
+        "ru": "Нежнейшая вырезка из мраморной говядины с трюфельным демигласом и пюре из сельдерея. Тает во рту. Подаётся с грибами шиитаке."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко",
+        "сельдерей"
+      ],
+      "tags": [
+        "авторское",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "utka-konfee",
+      "category_id": "steyki-i-myaso",
+      "price": 1290,
+      "weight": "350 г",
+      "photo": "photos/utka-konfee.webp",
+      "name": {
+        "ru": "Утиная ножка конфи"
+      },
+      "description": {
+        "ru": "Утиная ножка, томлённая 12 часов в собственном жире, с кассуле из белой фасоли и карамелизированным луком. Хрустящая корочка и невероятно нежное мясо внутри."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "burger-yantarnyj",
+      "category_id": "steyki-i-myaso",
+      "price": 790,
+      "weight": "350 г",
+      "photo": "photos/burger-yantarnyj.webp",
+      "name": {
+        "ru": "Бургер «Янтарный»"
+      },
+      "description": {
+        "ru": "Фирменный бургер с котлетой из мраморной говядины, копчёным сыром, карамелизированным луком и соусом BBQ на бриошь-булке. Подаётся с картофелем фри и колслоу."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко",
+        "яйца"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "pasta-carbonara",
+      "category_id": "pasta-i-rizotto",
+      "price": 590,
+      "weight": "300 г",
+      "photo": "photos/pasta-carbonara.webp",
+      "name": {
+        "ru": "Паста карбонара"
+      },
+      "description": {
+        "ru": "Спагетти аль денте с панчеттой, яичным соусом из желтков и пекорино романо. Классический римский рецепт без сливок — как положено."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко",
+        "яйца"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "risotto-s-moreproduktami",
+      "category_id": "pasta-i-rizotto",
+      "price": 890,
+      "weight": "320 г",
+      "photo": "photos/risotto-s-moreproduktami.webp",
+      "name": {
+        "ru": "Ризотто с морепродуктами"
+      },
+      "description": {
+        "ru": "Кремовое ризотто с креветками, мидиями, кальмарами и шафраном. Рис карнароли, пармезан, белое вино. Подаётся с обжаренными креветками на шпажке."
+      },
+      "ingredients": [],
+      "allergens": [
+        "ракообразные",
+        "моллюски",
+        "молоко"
+      ],
+      "tags": [
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "pasta-s-gribami",
+      "category_id": "pasta-i-rizotto",
+      "price": 690,
+      "weight": "300 г",
+      "photo": "photos/pasta-s-gribami.webp",
+      "name": {
+        "ru": "Паста с белыми грибами"
+      },
+      "description": {
+        "ru": "Тальятелле с белыми грибами в сливочном соусе с тимьяном и пармезаном. Грибы — свежие или сушёные из калининградских лесов в зависимости от сезона."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко"
+      ],
+      "tags": [
+        "вегетарианское",
+        "сезонное",
+        "локальное"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "kartofelnoe-pyure",
+      "category_id": "garniry",
+      "price": 290,
+      "weight": "200 г",
+      "photo": "photos/kartofelnoe-pyure.webp",
+      "name": {
+        "ru": "Картофельное пюре"
+      },
+      "description": {
+        "ru": "Воздушное пюре из отборного картофеля со сливочным маслом и мускатным орехом. Классический гарнир к мясу и рыбе."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко"
+      ],
+      "tags": [
+        "вегетарианское",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "ovoschi-gril",
+      "category_id": "garniry",
+      "price": 350,
+      "weight": "200 г",
+      "photo": "photos/ovoschi-gril.webp",
+      "name": {
+        "ru": "Овощи гриль"
+      },
+      "description": {
+        "ru": "Баклажаны, кабачки, перец, томаты и красный лук на углях с розмарином и оливковым маслом. Веганский гарнир, подходит ко всему."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "kartofel-fri",
+      "category_id": "garniry",
+      "price": 390,
+      "weight": "200 г",
+      "photo": "photos/kartofel-fri.webp",
+      "name": {
+        "ru": "Картофель фри с трюфельным маслом"
+      },
+      "description": {
+        "ru": "Хрустящий картофель фри с трюфельным маслом, пармезаном и свежей петрушкой. Непростой гарнир для тех, кто ценит детали."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко"
+      ],
+      "tags": [
+        "вегетарианское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "ris-zhashmin",
+      "category_id": "garniry",
+      "price": 250,
+      "weight": "180 г",
+      "photo": "photos/ris-zhashmin.webp",
+      "name": {
+        "ru": "Рис жасмин"
+      },
+      "description": {
+        "ru": "Рассыпчатый ароматный рис жасмин, приготовленный на пару. Идеальное дополнение к рыбе и азиатским блюдам."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "detskaya-pasta",
+      "category_id": "detskoe-menyu",
+      "price": 350,
+      "weight": "200 г",
+      "photo": "photos/detskaya-pasta.webp",
+      "name": {
+        "ru": "Детская паста с сыром"
+      },
+      "description": {
+        "ru": "Пенне с нежным сливочным соусом и тёртым сыром. Без специй, мягкий вкус. Для маленьких гурманов от 3 лет."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "молоко"
+      ],
+      "tags": [
+        "детское",
+        "вегетарианское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "detskiye-nagetsy",
+      "category_id": "detskoe-menyu",
+      "price": 390,
+      "weight": "220 г",
+      "photo": "photos/detskiye-nagetsy.webp",
+      "name": {
+        "ru": "Куриные наггетсы с картофелем"
+      },
+      "description": {
+        "ru": "Нежные куриные наггетсы в лёгкой панировке с картофелем фри и кетчупом. Курица — только филе, без добавок."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен",
+        "яйца"
+      ],
+      "tags": [
+        "детское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "detskij-sup",
+      "category_id": "detskoe-menyu",
+      "price": 320,
+      "weight": "250 мл",
+      "photo": "photos/detskij-sup.webp",
+      "name": {
+        "ru": "Куриный суп с лапшой"
+      },
+      "description": {
+        "ru": "Лёгкий куриный бульон с домашней лапшой, морковью и зеленью. Тёплый и питательный, подходит для малышей."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен"
+      ],
+      "tags": [
+        "детское"
+      ],
+      "spicy": false,
+      "vegetarian": false
+    },
+    {
+      "id": "tiramisu",
+      "category_id": "deserty",
+      "price": 490,
+      "weight": "180 г",
+      "photo": "photos/tiramisu.webp",
+      "name": {
+        "ru": "Тирамису"
+      },
+      "description": {
+        "ru": "Классический итальянский десерт из маскарпоне, савоярди и эспрессо с какао-пудрой. Готовим каждый день — только свежий."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко",
+        "яйца",
+        "глютен"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "marcipanovyj-tort",
+      "category_id": "deserty",
+      "price": 550,
+      "weight": "160 г",
+      "photo": "photos/marcipanovyj-tort.webp",
+      "name": {
+        "ru": "Марципановый торт «Кёнигсберг»"
+      },
+      "description": {
+        "ru": "Авторский торт из миндального марципана с шоколадным ганашем — дань кёнигсбергской кондитерской традиции. Подаётся с шариком ванильного мороженого."
+      },
+      "ingredients": [],
+      "allergens": [
+        "орехи",
+        "молоко",
+        "яйца",
+        "глютен"
+      ],
+      "tags": [
+        "локальное",
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "panna-kotta",
+      "category_id": "deserty",
+      "price": 420,
+      "weight": "150 г",
+      "photo": "photos/panna-kotta.webp",
+      "name": {
+        "ru": "Панна-котта с ягодным соусом"
+      },
+      "description": {
+        "ru": "Нежнейшая итальянская панна-котта с соусом из свежих лесных ягод. Лёгкий десерт для идеального завершения ужина."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко"
+      ],
+      "tags": [
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "shokoladnyj-fondan",
+      "category_id": "deserty",
+      "price": 520,
+      "weight": "170 г",
+      "photo": "photos/shokoladnyj-fondan.webp",
+      "name": {
+        "ru": "Шоколадный фондан"
+      },
+      "description": {
+        "ru": "Тёплый шоколадный кекс с жидким центром из бельгийского шоколада 70%. Подаётся с шариком ванильного мороженого. Готовится 15 минут — стоит подождать."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко",
+        "яйца",
+        "глютен"
+      ],
+      "tags": [
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "limonad-domashnyj",
+      "category_id": "bezalkogolnye-napitki",
+      "price": 350,
+      "weight": "400 мл",
+      "photo": "photos/limonad-domashnyj.webp",
+      "name": {
+        "ru": "Домашний лимонад"
+      },
+      "description": {
+        "ru": "Освежающий лимонад из свежих лимонов с мятой и тростниковым сахаром. Три вкуса: классический, имбирный, ягодный."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "morsy-yagodnyj",
+      "category_id": "bezalkogolnye-napitki",
+      "price": 290,
+      "weight": "400 мл",
+      "photo": "photos/morsy-yagodnyj.webp",
+      "name": {
+        "ru": "Морс ягодный"
+      },
+      "description": {
+        "ru": "Натуральный морс из клюквы, брусники и черной смородины. Без искусственных добавок, только ягоды и немного сахара. Подаётся со льдом."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган",
+        "локальное"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "espresso",
+      "category_id": "bezalkogolnye-napitki",
+      "price": 250,
+      "weight": "200 мл",
+      "photo": "photos/espresso.webp",
+      "name": {
+        "ru": "Эспрессо / Американо / Капучино"
+      },
+      "description": {
+        "ru": "Кофе на зёрнах specialty-класса из обжарщиков Калининграда. Эспрессо — 120₽, американо — 180₽, капучино — 250₽. Альтернативное молоко +50₽."
+      },
+      "ingredients": [],
+      "allergens": [
+        "молоко"
+      ],
+      "tags": [],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "chaj-kollekciya",
+      "category_id": "bezalkogolnye-napitki",
+      "price": 320,
+      "weight": "400 мл",
+      "photo": "photos/chaj-kollekciya.webp",
+      "name": {
+        "ru": "Чайная коллекция"
+      },
+      "description": {
+        "ru": "Чай в ассортименте: чёрный, зелёный, улун, травяной (ромашка, мята, иван-чай). Завариваем в чайнике на 2 чашки. Иван-чай — калининградская классика."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "веган",
+        "локальное"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "kokteyl-yantar-spritz",
+      "category_id": "avtorskie-kokteyli",
+      "price": 590,
+      "weight": "250 мл",
+      "photo": "photos/kokteyl-yantar-spritz.webp",
+      "name": {
+        "ru": "Янтарь Шприц"
+      },
+      "description": {
+        "ru": "Авторский аперитив на основе просекко, апероль и облепихового сиропа с веточкой розмарина. Яркий янтарный цвет — визитная карточка бара."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "авторское",
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "kokteyl-baltijskij-briz",
+      "category_id": "avtorskie-kokteyli",
+      "price": 550,
+      "weight": "300 мл",
+      "photo": "photos/kokteyl-baltijskij-briz.webp",
+      "name": {
+        "ru": "Балтийский бриз"
+      },
+      "description": {
+        "ru": "Джин, тоник, огуречный сироп, базилик и лайм. Свежий и лёгкий, как ветер с Балтийского моря. Подаётся в бокале с большим кубиком льда."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "kokteyl-vishnyovyj-sour",
+      "category_id": "avtorskie-kokteyli",
+      "price": 620,
+      "weight": "200 мл",
+      "photo": "photos/kokteyl-vishnyovyj-sour.webp",
+      "name": {
+        "ru": "Вишнёвый сауэр"
+      },
+      "description": {
+        "ru": "Бурбон, вишнёвый ликёр, лимонный сок, яичный белок. Бархатистая пена и глубокий вишнёвый вкус. Классический сауэр в авторской подаче."
+      },
+      "ingredients": [],
+      "allergens": [
+        "яйца"
+      ],
+      "tags": [
+        "авторское"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "vino-beloe-sauvignon",
+      "category_id": "vino",
+      "price": 490,
+      "weight": "150 мл",
+      "photo": "photos/vino-beloe-sauvignon.webp",
+      "name": {
+        "ru": "Совиньон Блан (бокал)"
+      },
+      "description": {
+        "ru": "Новая Зеландия, Marlborough. Свежий, с нотами крыжовника, цитрусовых и свежескошенной травы. Идеален к рыбе и морепродуктам."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "vino-krasnoe-merlot",
+      "category_id": "vino",
+      "price": 450,
+      "weight": "150 мл",
+      "photo": "photos/vino-krasnoe-merlot.webp",
+      "name": {
+        "ru": "Мерло (бокал)"
+      },
+      "description": {
+        "ru": "Чили, Valle Central. Мягкий, с нотами спелой вишни, сливы и лёгкого дуба. Универсальный выбор к мясу и пасте."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "vino-prosecco",
+      "category_id": "vino",
+      "price": 420,
+      "weight": "150 мл",
+      "photo": "photos/vino-prosecco.webp",
+      "name": {
+        "ru": "Просекко (бокал)"
+      },
+      "description": {
+        "ru": "Италия, Венето. Лёгкое игристое с нотами зелёного яблока и белых цветов. Отлично для аперитива или к лёгким закускам."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "pivo-yantarnoe",
+      "category_id": "pivo-i-sidr",
+      "price": 390,
+      "weight": "500 мл",
+      "photo": "photos/pivo-yantarnoe.webp",
+      "name": {
+        "ru": "Янтарное (крафт, 0.5)"
+      },
+      "description": {
+        "ru": "Фирменный янтарный эль от калининградской пивоварни «Хмельной замок». Карамельный солод, хмель Cascade, лёгкая горчинка. 5.2% ABV."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен"
+      ],
+      "tags": [
+        "локальное",
+        "хит"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "pivo-pshenichnoye",
+      "category_id": "pivo-i-sidr",
+      "price": 350,
+      "weight": "500 мл",
+      "photo": "photos/pivo-pshenichnoye.webp",
+      "name": {
+        "ru": "Пшеничное нефильтрованное (0.5)"
+      },
+      "description": {
+        "ru": "Классический немецкий хефевайцен — мутное, ароматное, с нотами банана и гвоздики. Отсылка к кёнигсбергским пивным традициям."
+      },
+      "ingredients": [],
+      "allergens": [
+        "глютен"
+      ],
+      "tags": [
+        "локальное"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    },
+    {
+      "id": "sidr-yablochnyj",
+      "category_id": "pivo-i-sidr",
+      "price": 320,
+      "weight": "330 мл",
+      "photo": "photos/sidr-yablochnyj.webp",
+      "name": {
+        "ru": "Яблочный сидр (0.33)"
+      },
+      "description": {
+        "ru": "Полусухой яблочный сидр от местного производителя. Натуральное брожение, без добавленного сахара. Свежий и лёгкий — 4.5% ABV."
+      },
+      "ingredients": [],
+      "allergens": [],
+      "tags": [
+        "локальное",
+        "без глютена"
+      ],
+      "spicy": false,
+      "vegetarian": true
+    }
+  ]
+}

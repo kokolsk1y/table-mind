@@ -3,12 +3,17 @@
 	import { streamChat } from "$lib/ai/client.js";
 	import { formatCatalogForAI } from "$lib/ai/prompt.js";
 	import { cart } from "$lib/stores/cart.svelte.js";
+	import { session } from "$lib/stores/session.svelte.js";
+	import { getName, getDescription } from "$lib/data/catalog.js";
 
 	let { item, onClose } = $props();
 	let text = $state("");
 	let error = $state(null);
 	let imgFailed = $state(false);
 	let added = $state(false);
+
+	const itemName = $derived(getName(item, session.currentLang));
+	const itemDescription = $derived(getDescription(item, session.currentLang));
 
 	function addToCart() {
 		cart.add(item);
@@ -22,14 +27,16 @@
 		text = "";
 		error = null;
 
-		const catalog = formatCatalogForAI([item]);
+		const lang = session.currentLang;
+		const catalog = formatCatalogForAI([item], lang);
 
 		streamChat({
 			agent: "waiter",
 			style: "detailed",
-			message: `Расскажи о блюде: ${item.name}`,
+			message: `Расскажи о блюде: ${getName(item, lang)}`,
 			history: [],
 			catalog,
+			lang,
 			onChunk(fullText) {
 				text = fullText;
 			},
@@ -70,7 +77,7 @@
 			<div class="relative w-full h-48 border-b border-base-content/20 overflow-hidden bg-base-200">
 				<img
 					src="{base}/{item.photo}"
-					alt={item.name}
+					alt={itemName}
 					class="w-full h-full object-cover"
 					onerror={() => (imgFailed = true)}
 				/>
@@ -80,8 +87,13 @@
 		<div class="p-6">
 			<div class="font-mono text-[11px] tracking-[0.18em] text-accent uppercase mb-3">блюдо · о нём</div>
 			<h3 class="font-display italic text-[32px] font-medium text-base-content leading-[1.1]">
-				{item.name}
+				{itemName}
 			</h3>
+			{#if itemDescription}
+				<p class="font-display italic text-base text-base-content/65 mt-3 leading-relaxed">
+					{itemDescription}
+				</p>
+			{/if}
 
 			<div class="flex items-baseline gap-4 mt-4">
 				<span class="font-mono tabular text-lg text-base-content font-medium">

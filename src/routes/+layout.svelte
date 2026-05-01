@@ -23,6 +23,18 @@
 			}
 		}
 
+		// Язык: ручной выбор гостя > сохранённый ранее > авто-детект из браузера.
+		const langParam = url.searchParams.get("lang");
+		const storedLang = sessionStorage.getItem("currentLang");
+		if (langParam) {
+			session.setLang(langParam);
+			sessionStorage.setItem("currentLang", session.currentLang);
+		} else if (storedLang) {
+			session.setLang(storedLang);
+		} else {
+			session.detectLangFromBrowser();
+		}
+
 		const standalone = window.matchMedia("(display-mode: standalone)").matches;
 		if (standalone) {
 			document.documentElement.classList.add("pwa-standalone");
